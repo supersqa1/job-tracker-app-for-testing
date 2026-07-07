@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Interview Preparation | NEO-HIRE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#006a71",
+                        "surface-bright": "#333b3b",
+                        "tertiary-fixed-dim": "#eec200",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "secondary": "#4edea3",
+                        "surface-dim": "#0d1515",
+                        "on-surface": "#dce4e4",
+                        "outline-variant": "#3a494b",
+                        "surface": "#0d1515",
+                        "on-surface-variant": "#b9cacb",
+                        "primary-container": "#00f2ff",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#2e3637",
+                        "inverse-on-surface": "#2a3232",
+                        "on-primary-fixed-variant": "#004f54",
+                        "error-container": "#93000a",
+                        "secondary-container": "#00a572",
+                        "tertiary-fixed": "#ffe083",
+                        "secondary-fixed-dim": "#4edea3",
+                        "secondary-fixed": "#6ffbbe",
+                        "outline": "#849495",
+                        "tertiary-container": "#ffd753",
+                        "surface-tint": "#00dbe7",
+                        "surface-container-low": "#151d1e",
+                        "background": "#0d1515",
+                        "surface-container-highest": "#2e3637",
+                        "inverse-surface": "#dce4e4",
+                        "primary-fixed-dim": "#00dbe7",
+                        "on-primary": "#00363a",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#74f5ff",
+                        "surface-container": "#192122",
+                        "on-secondary-container": "#00311f",
+                        "on-primary-fixed": "#002022",
+                        "on-background": "#dce4e4",
+                        "tertiary": "#fff6e7",
+                        "on-tertiary-container": "#745d00",
+                        "on-secondary-fixed": "#002113",
+                        "on-secondary": "#003824",
+                        "on-error": "#690005",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-tertiary-fixed": "#231b00",
+                        "inverse-primary": "#00696f",
+                        "on-tertiary": "#3c2f00",
+                        "surface-container-high": "#232b2c",
+                        "surface-container-lowest": "#080f10",
+                        "primary": "#e1fdff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "mono-data": ["Geist"],
+                        "label-sm": ["Geist"],
+                        "body-md": ["Inter"],
+                        "display": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "mono-data": ["14px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display": ["48px", { "lineHeight": "1.1", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Hanken+Grotesk:wght@600;700&family=Inter:wght@400&display=swap');
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .glass-pane {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid;
+            border-image-source: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            border-image-slice: 1;
+        }
+
+        .precision-border {
+            border: 1px solid;
+            border-image-source: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            border-image-slice: 1;
+        }
+
+        .neo-button {
+            border: 1px solid;
+            border-image-source: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+            border-image-slice: 1;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+        
+        .neo-button:hover {
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+        }
+        
+        /* Thin scrollbar for Webkit */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a494b;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar (Hidden on Mobile) -->
+<nav class="hidden md:flex bg-surface-container-low/80 dark:bg-surface-container-low/80 backdrop-blur-2xl h-screen w-20 hover:w-64 transition-all duration-300 ease-in-out border-r border-outline-variant/20 flex-col z-40 overflow-hidden fixed left-0 top-0 group">
+<div class="p-gutter flex items-center gap-4">
+<img alt="User avatar" class="w-10 h-10 rounded-full border border-primary-fixed-dim/30 shadow-[0_0_10px_rgba(0,242,255,0.2)] object-cover flex-shrink-0" data-alt="Minimalist abstract geometric icon representing a high-tech corporate system logo. Dark slate background, laser cyan sharp edges, futuristic precision aesthetics, glowing accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaA07HO43jbgnHfRuzM_K13j3zz23FQu57DmtNL19u1YVh6l3rg2S1JvVgOGjzERa7fByv5WzqzVWfJboMKI77TDCeiVCTo8JNcGjGL0skUq5yeExAdOHu_iLQHvC_QOGmHWbou-yxzmvfNKHHVzKc2kGHPdwUnPyyWEwzfoQ420S8YdtkXuMtn8rBx6cai5ErJ7nLwCF6kMoEFQhe4KSeADnhI3i1s-CMi430mTwjGHEp52GicMEWuF-i6rrm1j79jDJadvpGefw"/>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+<div class="font-headline-md text-headline-md text-on-surface">System Admin</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Precision Mode</div>
+</div>
+</div>
+<div class="mt-8 flex flex-col gap-2 px-3 flex-grow">
+<!-- Dashboard -->
+<a class="flex items-center gap-4 p-3 rounded-lg text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined flex-shrink-0">dashboard</span>
+<span class="font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Dashboard</span>
+</a>
+<!-- Jobs -->
+<a class="flex items-center gap-4 p-3 rounded-lg text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined flex-shrink-0">work</span>
+<span class="font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Jobs</span>
+</a>
+<!-- Analytics -->
+<a class="flex items-center gap-4 p-3 rounded-lg text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined flex-shrink-0">analytics</span>
+<span class="font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Analytics</span>
+</a>
+<!-- Interviews (ACTIVE) -->
+<a class="flex items-center gap-4 p-3 rounded-lg text-primary-fixed-dim border-l-4 border-primary-fixed-dim bg-primary-container/10 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined flex-shrink-0" style="font-variation-settings: 'FILL' 1;">event_upcoming</span>
+<span class="font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Interviews</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-4 p-3 rounded-lg text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined flex-shrink-0">settings</span>
+<span class="font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Settings</span>
+</a>
+</div>
+<div class="mb-4 px-3 flex flex-col gap-2">
+<button class="w-full flex items-center justify-center gap-2 p-3 bg-surface-variant/50 border border-outline-variant/30 rounded-lg text-primary-fixed-dim hover:bg-surface-variant/80 transition-colors whitespace-nowrap overflow-hidden">
+<span class="material-symbols-outlined flex-shrink-0">add</span>
+<span class="font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">New Application</span>
+</button>
+<a class="flex items-center gap-4 p-3 rounded-lg text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined flex-shrink-0">help_outline</span>
+<span class="font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Support</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-lg text-on-surface-variant hover:text-error hover:bg-error-container/10 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined flex-shrink-0">logout</span>
+<span class="font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-0 md:ml-20 flex flex-col min-h-screen relative z-10">
+<!-- TopNavBar (Mobile Only) -->
+<header class="md:hidden sticky top-0 z-50 flex justify-between items-center px-gutter py-unit h-16 w-full bg-surface/60 dark:bg-surface/60 backdrop-blur-xl border-b border-outline-variant/30 shadow-[0_0_15px_rgba(0,242,255,0.1)]">
+<div class="font-display text-display text-primary-fixed-dim tracking-widest text-xl font-bold">NEO-HIRE</div>
+<div class="flex gap-4">
+<button class="text-on-surface-variant hover:bg-surface-bright/20 transition-colors p-2 rounded-full active:scale-95 duration-150"><span class="material-symbols-outlined">notifications</span></button>
+<button class="text-on-surface-variant hover:bg-surface-bright/20 transition-colors p-2 rounded-full active:scale-95 duration-150"><span class="material-symbols-outlined">settings</span></button>
+</div>
+</header>
+<div class="p-gutter md:p-margin-desktop max-w-container-max mx-auto w-full flex-1 pb-32">
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-8 border-b border-outline-variant/30 pb-4">
+<div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface tracking-tight">Interview Preparation</h1>
+<p class="font-mono-data text-mono-data text-on-surface-variant mt-2">SYS.STATE: FOCUSED_MODE_ACTIVE</p>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Upcoming Interviews (Left Column) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<h2 class="font-headline-md text-headline-md text-primary-fixed-dim flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">schedule</span> Upcoming
+                    </h2>
+<!-- Primary Upcoming Interview Card -->
+<div class="glass-pane rounded-xl p-[24px] relative overflow-hidden group">
+<!-- Subtle pulse effect background -->
+<div class="absolute inset-0 bg-primary-fixed-dim/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse"></div>
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-bright/50 border border-outline-variant/50 rounded flex items-center justify-center overflow-hidden">
+<img alt="Company Logo" class="w-6 h-6 object-contain" data-alt="Minimalist glowing blue geometric icon representing a high tech cloud computing company, set against a dark slate background, highly detailed precision aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN4QtIQkrSq1W5C73PzmGBfgfzRBqkhc_7AOQak-Cu_dbdByP2Rbpc9j2-PZoDN-dyWXcIw_uLcjCZ5hNmkqpJ6Nq8EcOoXM94f7KXEbNwYDahEUqVVolG85_3m__dAORxVRJhx7TpKJ4TyXi2OHGd6SqVVs23JRRuTsIn5CBPf3sBZj01XncqlH5czsryJ_ABNE5e-6HwDvQSKUwj84XYfqTEdobdjBJvsD7pMdfgGtzAfNhS6eOr7FwpYwoX3y7wHOF0K-TWMmo"/>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">DataStax</h3>
+<p class="font-mono-data text-mono-data text-on-surface-variant">Sr. Cloud Architect</p>
+</div>
+</div>
+<span class="border border-primary-fixed-dim text-primary-fixed-dim font-label-sm text-label-sm px-2 py-1 bg-primary-container/10 rounded uppercase">Technical</span>
+</div>
+<div class="space-y-4 relative z-10">
+<div class="flex justify-between items-end border-b border-outline-variant/30 pb-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Time to T-Zero</span>
+<span class="font-mono-data text-mono-data text-primary-fixed-dim text-xl">48:12:05</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-mono-data text-mono-data">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 24, 2026 - 14:00 PST
+                            </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-mono-data text-mono-data">
+<span class="material-symbols-outlined text-[16px]">video_camera_front</span> Google Meet
+                            </div>
+</div>
+<button class="w-full mt-6 neo-button bg-surface/50 text-primary-fixed-dim font-label-sm text-label-sm py-3 rounded-lg hover:bg-primary-fixed-dim/10 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">rocket_launch</span> Enter Focus Area
+                        </button>
+</div>
+<!-- Secondary Upcoming Interview Card -->
+<div class="glass-pane rounded-xl p-[16px] opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-bright/50 border border-outline-variant/50 rounded flex items-center justify-center overflow-hidden">
+<img alt="Company Logo" class="w-5 h-5 object-contain" data-alt="Sleek monochromatic vector logo for a stealth AI startup, dark background with subtle silver highlights, precision corporate identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGPNJQ_lgSDAfsDM8ktTwQJ9ewqRdd3j9EF9TFW3w4y3bjXrtaXw4EXnFQdOm8qn9pWEGcHO6STN3sU3tdHy7D-WdZHQuKL7pfizg2nF5NOGC2O7NCms3EDrkTECpHcNFFVuHC4d2LilnU1tAz3sGQHJXj5Qq3FaJNvMZDvKIwLcESE3TEKtM29DHanhSg0Tye94_qfW6LC0haHJCmnGd9e3Hi1MKfx0hhi7ts1We9ce5csO2QsU-etg5Hb9qt02CGMMr4VDOGEHE"/>
+</div>
+<div>
+<h3 class="font-body-md text-body-md font-semibold text-on-surface">Nexus AI</h3>
+<p class="font-mono-data text-mono-data text-on-surface-variant text-[12px]">Systems Engineer</p>
+</div>
+</div>
+<span class="border border-outline-variant text-on-surface-variant font-label-sm text-label-sm px-2 py-1 bg-surface-variant/30 rounded uppercase text-[10px]">Behavioral</span>
+</div>
+<div class="flex justify-between items-center font-mono-data text-mono-data text-[12px] text-on-surface-variant border-t border-outline-variant/20 pt-2">
+<span>Oct 28, 2026</span>
+<span>T-Minus 4 days</span>
+</div>
+</div>
+</div>
+<!-- Research & Intel Section (Right Column) -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<div class="flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary-fixed-dim">radar</span> Active Intel: DataStax
+                        </h2>
+<div class="flex gap-2">
+<button class="precision-border bg-surface-variant/30 px-3 py-1 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-primary-fixed-dim hover:bg-surface-variant/60 transition-colors">Refresh Intel</button>
+</div>
+</div>
+<!-- Bento Grid Inner -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Company Brief -->
+<div class="glass-pane rounded-xl p-[24px] md:col-span-2">
+<h3 class="font-label-sm text-label-sm text-primary-fixed-dim uppercase mb-4 tracking-widest">Executive Summary</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                                DataStax is currently heavily investing in distributed vector search capabilities to support enterprise AI workloads. They recently closed a Series G funding round and are aggressively expanding their cloud-native infrastructure team to migrate legacy Cassanda deployments to Kubernetes-native architectures.
+                            </p>
+</div>
+<!-- Key Facts -->
+<div class="glass-pane rounded-xl p-[24px]">
+<h3 class="font-label-sm text-label-sm text-primary-fixed-dim uppercase mb-4 tracking-widest">Key Vectors</h3>
+<ul class="space-y-3 font-mono-data text-mono-data text-on-surface">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[16px] mt-0.5">check_circle</span>
+<span>Tech Stack: Go, Rust, Kubernetes, Cassandra</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[16px] mt-0.5">trending_up</span>
+<span>Recent focus on Astra DB vector search latency</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[16px] mt-0.5">group</span>
+<span>Engineering culture emphasizes "Autonomy &amp; Alignment"</span>
+</li>
+</ul>
+</div>
+<!-- Recent News -->
+<div class="glass-pane rounded-xl p-[24px]">
+<h3 class="font-label-sm text-label-sm text-primary-fixed-dim uppercase mb-4 tracking-widest">Signal / News</h3>
+<div class="space-y-4">
+<div class="border-l-2 border-primary-fixed-dim/50 pl-3">
+<p class="font-mono-data text-mono-data text-on-surface-variant text-[12px] mb-1">2 days ago - TechCrunch</p>
+<p class="font-body-md text-body-md text-on-surface leading-snug">DataStax announces integration with LangChain for building GenAI apps faster.</p>
+</div>
+<div class="border-l-2 border-outline-variant pl-3">
+<p class="font-mono-data text-mono-data text-on-surface-variant text-[12px] mb-1">1 week ago - Corporate Blog</p>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">Scaling stateful workloads on K8s: A post-mortem of our Q3 incident.</p>
+</div>
+</div>
+</div>
+<!-- Generated Questions -->
+<div class="glass-pane rounded-xl p-[24px] md:col-span-2">
+<h3 class="font-label-sm text-label-sm text-primary-fixed-dim uppercase mb-4 tracking-widest flex justify-between items-center">
+<span>Predictive Question Generation</span>
+<span class="bg-primary-fixed-dim/20 text-primary-fixed-dim px-2 py-0.5 rounded text-[10px] border border-primary-fixed-dim/30">AI CONFIDENCE: 87%</span>
+</h3>
+<div class="space-y-4">
+<!-- Q1 -->
+<div class="bg-surface-variant/20 p-4 rounded-lg precision-border">
+<p class="font-body-md text-body-md text-on-surface font-semibold mb-2">"Describe a time you had to optimize a distributed datastore for high-throughput, low-latency writes."</p>
+<div class="flex gap-2">
+<button class="text-[12px] font-mono-data border border-outline-variant/50 px-2 py-1 rounded text-on-surface-variant hover:text-primary-fixed-dim hover:border-primary-fixed-dim/50 transition-colors">Draft STAR Response</button>
+<button class="text-[12px] font-mono-data border border-outline-variant/50 px-2 py-1 rounded text-on-surface-variant hover:text-primary-fixed-dim hover:border-primary-fixed-dim/50 transition-colors">Ignore</button>
+</div>
+</div>
+<!-- Q2 -->
+<div class="bg-surface-variant/20 p-4 rounded-lg precision-border">
+<p class="font-body-md text-body-md text-on-surface font-semibold mb-2">"How would you approach migrating a legacy monolithic application to a microservices architecture on Kubernetes with zero downtime?"</p>
+<div class="flex gap-2">
+<span class="text-[12px] font-mono-data border border-primary-fixed-dim px-2 py-1 rounded text-primary-fixed-dim bg-primary-fixed-dim/10">Response Drafted</span>
+<button class="text-[12px] font-mono-data px-2 py-1 text-on-surface-variant hover:text-primary-fixed-dim transition-colors underline">Edit</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full flex justify-between items-center px-gutter py-2 z-50 bg-surface/80 backdrop-blur-xl border-t border-outline-variant/30">
+<a class="flex flex-col items-center gap-1 p-2 text-on-surface-variant w-16" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-on-surface-variant w-16" href="#">
+<span class="material-symbols-outlined">work</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-primary-fixed-dim w-16 relative" href="#">
+<span class="absolute top-0 w-8 h-1 bg-primary-fixed-dim rounded-full -mt-2"></span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">event_upcoming</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-on-surface-variant w-16" href="#">
+<span class="material-symbols-outlined">analytics</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-on-surface-variant w-16" href="#">
+<span class="material-symbols-outlined">person</span>
+</a>
+</nav>
+</body></html>
