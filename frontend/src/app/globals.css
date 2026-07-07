@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+/* ── Aura Executive design tokens (see docs/DESIGN_SYSTEM.md) ── */
+
+@theme inline {
+  --color-background: #0d1515;
+  --color-foreground: #dce4e4;
+  --color-surface: #0d1515;
+  --color-surface-dim: #0d1515;
+  --color-surface-bright: #333b3b;
+  --color-surface-container-lowest: #080f10;
+  --color-surface-container-low: #151d1e;
+  --color-surface-container: #192122;
+  --color-surface-container-high: #232b2c;
+  --color-surface-container-highest: #2e3637;
+  --color-surface-variant: #2e3637;
+  --color-on-background: #dce4e4;
+  --color-on-surface: #dce4e4;
+  --color-on-surface-variant: #b9cacb;
+  --color-outline: #849495;
+  --color-outline-variant: #3a494b;
+  --color-primary: #e1fdff;
+  --color-primary-fixed: #74f5ff;
+  --color-primary-fixed-dim: #00dbe7;
+  --color-primary-container: #00f2ff;
+  --color-on-primary-container: #006a71;
+  --color-surface-tint: #00dbe7;
+  --color-secondary: #4edea3;
+  --color-secondary-fixed: #6ffbbe;
+  --color-secondary-container: #00a572;
+  --color-tertiary-fixed-dim: #eec200;
+  --color-tertiary-fixed: #ffe083;
+  --color-tertiary-container: #ffd753;
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+
+  --font-display: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --font-headline: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-label: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono-data: var(--font-geist-mono), ui-monospace, monospace;
+
+  --spacing-gutter: 24px;
+  --spacing-margin-mobile: 16px;
+  --spacing-margin-desktop: 48px;
+  --spacing-unit: 4px;
+
+  --text-display: 48px;
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: 0.05em;
+  --text-display--font-weight: 700;
+
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 1.2;
+  --text-headline-lg--letter-spacing: 0.02em;
+  --text-headline-lg--font-weight: 600;
+
+  --text-headline-lg-mobile: 24px;
+  --text-headline-lg-mobile--line-height: 1.2;
+  --text-headline-lg-mobile--font-weight: 600;
+
+  --text-headline-md: 20px;
+  --text-headline-md--line-height: 1.4;
+  --text-headline-md--font-weight: 600;
+
+  --radius-sm: 0.125rem;
+  --radius-DEFAULT: 0.25rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+}
+
+/* ── Base ── */
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+  font-family: var(--font-body);
+}
+
+/* ── Glass & precision utilities ── */
+
+.glass-pane {
+  background-color: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-floating {
+  background-color: rgba(51, 65, 85, 0.8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.precision-border {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.neo-glass-btn {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.neo-glass-btn:hover {
+  box-shadow: 0 0 25px rgba(0, 242, 255, 0.5);
+  background-color: rgba(0, 242, 255, 0.1);
+}
+
+.field-label {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.field-control {
+  width: 100%;
+  min-height: 2.875rem;
+  border: 1px solid rgba(132, 148, 149, 0.55);
+  border-radius: 0.25rem;
+  background: rgba(13, 21, 21, 0.92);
+  color: var(--color-on-surface);
+  padding: 0.75rem;
+  outline: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 1px 0 rgba(0, 0, 0, 0.4);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.field-control-with-leading-icon {
+  padding-left: 2.75rem;
+}
+
+.field-control::placeholder {
+  color: rgba(185, 202, 203, 0.45);
+}
+
+.field-control:focus {
+  border-color: rgba(0, 219, 231, 0.75);
+  background: rgba(21, 29, 30, 0.98);
+  box-shadow:
+    0 0 0 1px rgba(0, 219, 231, 0.45),
+    0 0 18px rgba(0, 219, 231, 0.12);
+}
+
+.field-select {
+  appearance: none;
+  padding-right: 2.75rem;
+}
+
+.field-control option {
+  background: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(13, 21, 21, 0.5);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 242, 255, 0.3);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 242, 255, 0.6);
+}

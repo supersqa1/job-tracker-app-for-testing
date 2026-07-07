@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Job Application Details - NEO-HIRE OS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-container": "#006a71",
+                        "surface-bright": "#333b3b",
+                        "tertiary-fixed-dim": "#eec200",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "secondary": "#4edea3",
+                        "surface-dim": "#0d1515",
+                        "on-surface": "#dce4e4",
+                        "outline-variant": "#3a494b",
+                        "surface": "#0d1515",
+                        "on-surface-variant": "#b9cacb",
+                        "primary-container": "#00f2ff",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#2e3637",
+                        "inverse-on-surface": "#2a3232",
+                        "on-primary-fixed-variant": "#004f54",
+                        "error-container": "#93000a",
+                        "secondary-container": "#00a572",
+                        "tertiary-fixed": "#ffe083",
+                        "secondary-fixed-dim": "#4edea3",
+                        "secondary-fixed": "#6ffbbe",
+                        "outline": "#849495",
+                        "tertiary-container": "#ffd753",
+                        "surface-tint": "#00dbe7",
+                        "surface-container-low": "#151d1e",
+                        "background": "#0d1515",
+                        "surface-container-highest": "#2e3637",
+                        "inverse-surface": "#dce4e4",
+                        "primary-fixed-dim": "#00dbe7",
+                        "on-primary": "#00363a",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#74f5ff",
+                        "surface-container": "#192122",
+                        "on-secondary-container": "#00311f",
+                        "on-primary-fixed": "#002022",
+                        "on-background": "#dce4e4",
+                        "tertiary": "#fff6e7",
+                        "on-tertiary-container": "#745d00",
+                        "on-secondary-fixed": "#002113",
+                        "on-secondary": "#003824",
+                        "on-error": "#690005",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-tertiary-fixed": "#231b00",
+                        "inverse-primary": "#00696f",
+                        "on-tertiary": "#3c2f00",
+                        "surface-container-high": "#232b2c",
+                        "surface-container-lowest": "#080f10",
+                        "primary": "#e1fdff"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.125rem",
+                        lg: "0.25rem",
+                        xl: "0.5rem",
+                        full: "0.75rem"
+                    },
+                    spacing: {
+                        unit: "4px",
+                        gutter: "24px",
+                        "container-max": "1440px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px"
+                    },
+                    fontFamily: {
+                        "body-lg": ["Inter"],
+                        "mono-data": ["Geist Mono", "monospace"],
+                        "label-sm": ["Geist", "sans-serif"],
+                        "body-md": ["Inter"],
+                        display: ["Hanken Grotesk", "sans-serif"],
+                        "headline-lg": ["Hanken Grotesk", "sans-serif"],
+                        "headline-lg-mobile": ["Hanken Grotesk", "sans-serif"],
+                        "headline-md": ["Hanken Grotesk", "sans-serif"]
+                    },
+                    fontSize: {
+                        "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "mono-data": ["14px", { lineHeight: "1.4", fontWeight: "400" }],
+                        "label-sm": ["12px", { lineHeight: "1", letterSpacing: "0.1em", fontWeight: "500" }],
+                        "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+                        display: ["48px", { lineHeight: "1.1", letterSpacing: "0.05em", fontWeight: "700" }],
+                        "headline-lg": ["32px", { lineHeight: "1.2", letterSpacing: "0.02em", fontWeight: "600" }],
+                        "headline-lg-mobile": ["24px", { lineHeight: "1.2", fontWeight: "600" }],
+                        "headline-md": ["20px", { lineHeight: "1.4", fontWeight: "600" }]
+                    },
+                    backgroundImage: {
+                        'glass-gradient': 'linear-gradient(to bottom, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05))',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&family=Inter:wght@400&family=Geist:wght@500&family=Geist+Mono:wght@400&display=swap');
+        
+        body {
+            background-color: #0F172A; /* Base Dark Level 0 */
+            color: #dce4e4;
+        }
+
+        .glass-pane {
+            background-color: rgba(30, 41, 59, 0.6); /* Level 1 */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: relative;
+        }
+
+        .glass-pane::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 1px solid transparent;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+        
+        .glass-floating {
+             background-color: rgba(51, 65, 85, 0.8); /* Level 2 */
+             backdrop-filter: blur(24px);
+             -webkit-backdrop-filter: blur(24px);
+        }
+
+        .neo-button {
+            position: relative;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease;
+        }
+        
+        .neo-button-primary {
+             box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+             border-color: rgba(0, 242, 255, 0.5);
+             color: #00dbe7;
+        }
+
+        .neo-button-primary:hover {
+             box-shadow: 0 0 25px rgba(0, 242, 255, 0.5);
+             background-color: rgba(0, 242, 255, 0.1);
+        }
+
+        .timeline-node::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 24px;
+            bottom: -24px;
+            width: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .timeline-node:last-child::before {
+            display: none;
+        }
+        
+        /* Ring Animation */
+        .progress-ring__circle {
+            transition: stroke-dashoffset 1s ease-in-out;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+    </style>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+</head>
+<body class="font-body-md text-body-md min-h-screen overflow-x-hidden selection:bg-primary-container/30">
+<!-- TopNavBar -->
+<nav class="hidden md:flex sticky top-0 z-50 justify-between items-center px-gutter py-unit h-16 w-full bg-surface/60 dark:bg-surface/60 backdrop-blur-xl border-b border-outline-variant/30 shadow-[0_0_15px_rgba(0,242,255,0.1)]">
+<div class="flex items-center gap-8">
+<span class="font-display text-display text-primary-fixed-dim tracking-widest text-2xl">NEO-HIRE</span>
+<!-- Search Bar (on_left) -->
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="w-full bg-surface-container-high border-0 border-b border-outline-variant/50 focus:border-primary-fixed-dim text-on-surface pl-9 py-1 text-sm bg-transparent focus:ring-0 focus:outline-none transition-colors placeholder:text-outline/50" placeholder="Search parameters..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-on-surface-variant hover:text-primary-fixed-dim transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary-fixed-dim transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-primary-fixed-dim/30 overflow-hidden relative">
+<img alt="User profile with active status indicator" class="object-cover w-full h-full" data-alt="Futuristic portrait of a professional in minimalist dark clothing, bathed in soft cyan rim lighting against a deep slate background. 2026 corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCY5_XrPE5UH6cRfSum0iYRUNlj3sGn-vFssMhFDNmK0CUIOg1_CSJ9pEznsUvUVjHznJxFcPkbgKV3RDHFmcBhsz3N4n3KVZXSPxNMhR9kSU8pEbPEgQDXokJyABXE7fIcDGLE9Eywk5LFKXoPSSfnO9s76tm7wJTWdkjbwH4c4TFwSzbswPV8ez2e4nvCribM_AMOPEH6CbtHiyo-z-ohv0PMrbugT7agnNC6KGs0aymfGDLfRoB8gMJWUeNqnL4o1zL8VS8iAv0"/>
+<div class="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-secondary-fixed shadow-[0_0_5px_rgba(111,251,190,0.8)] border border-background"></div>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<nav class="hidden md:flex fixed left-0 top-16 h-[calc(100vh-64px)] flex-col z-40 overflow-hidden w-20 hover:w-64 transition-all duration-300 ease-in-out bg-surface-container-low/80 dark:bg-surface-container-low/80 backdrop-blur-2xl border-r border-outline-variant/20 group">
+<div class="p-4 flex items-center gap-4 border-b border-outline-variant/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap overflow-hidden">
+<div class="w-10 h-10 rounded-full border border-outline-variant/30 flex-shrink-0 overflow-hidden">
+<img alt="User avatar" class="object-cover w-full h-full" data-alt="Minimalist abstract avatar image, geometric shapes in muted slate and cyan tones on a dark background. Corporate tech UI asset." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdo-48-E_b5dDuiAn1RqqPGwAS4MxhHFUw7UQ89fB3Fow0CXst-7cikl2BI5QdXA3kO0j-ivTDVuYMvOuPgYx-OkVcPkbnmjqGSgduTNt22TW05zAuJ_2T__cpAhLjShIsfupQte5jyINB5zv_92SrU_KdKkboOcI22lVDUB1Pu3SfmuKxnTUkWNXqcRSnnbv0xmIo-roH_zQNMdlcIlruFG52kZmwl4wGJ8ySRELYMcnBsLDxhUG0UmYqqsgWKyjTSdKLcbe2DVs"/>
+</div>
+<div>
+<div class="font-headline-md text-headline-md text-on-surface">System Admin</div>
+<div class="font-label-sm text-label-sm text-secondary">Precision Mode</div>
+</div>
+</div>
+<div class="flex-1 py-6 flex flex-col gap-2">
+<!-- Jobs is Active semantically for viewing a specific job -->
+<a class="flex items-center px-6 py-3 text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-all duration-300 ease-out whitespace-nowrap group-hover:px-6 relative" href="#">
+<span class="material-symbols-outlined w-6 text-center">dashboard</span>
+<span class="ml-4 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Dashboard</span>
+</a>
+<a class="flex items-center px-6 py-3 text-primary-fixed-dim border-l-4 border-primary-fixed-dim bg-primary-container/10 transition-all duration-300 ease-out whitespace-nowrap relative" href="#">
+<span class="material-symbols-outlined w-6 text-center -ml-1">work</span>
+<span class="ml-4 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Jobs</span>
+</a>
+<a class="flex items-center px-6 py-3 text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-all duration-300 ease-out whitespace-nowrap relative" href="#">
+<span class="material-symbols-outlined w-6 text-center">analytics</span>
+<span class="ml-4 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Analytics</span>
+</a>
+<a class="flex items-center px-6 py-3 text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-all duration-300 ease-out whitespace-nowrap relative" href="#">
+<span class="material-symbols-outlined w-6 text-center">event_upcoming</span>
+<span class="ml-4 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Interviews</span>
+</a>
+<a class="flex items-center px-6 py-3 text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-all duration-300 ease-out whitespace-nowrap relative" href="#">
+<span class="material-symbols-outlined w-6 text-center">settings</span>
+<span class="ml-4 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Settings</span>
+</a>
+</div>
+<div class="p-4 flex justify-center group-hover:justify-start group-hover:px-6 transition-all duration-300 border-t border-outline-variant/10">
+<button class="neo-button neo-button-primary rounded px-2 py-2 group-hover:px-4 w-full flex justify-center items-center gap-2 overflow-hidden whitespace-nowrap">
+<span class="material-symbols-outlined text-sm">add</span>
+<span class="font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-0 group-hover:w-auto hidden group-hover:inline">New Application</span>
+</button>
+</div>
+<div class="mt-auto py-4 flex flex-col gap-2 border-t border-outline-variant/10">
+<a class="flex items-center px-6 py-2 text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-all duration-300 ease-out whitespace-nowrap relative" href="#">
+<span class="material-symbols-outlined w-6 text-center text-sm">help_outline</span>
+<span class="ml-4 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Support</span>
+</a>
+<a class="flex items-center px-6 py-2 text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-all duration-300 ease-out whitespace-nowrap relative" href="#">
+<span class="material-symbols-outlined w-6 text-center text-sm">logout</span>
+<span class="ml-4 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="md:ml-20 pt-16 md:pt-6 p-4 md:p-gutter max-w-container-max mx-auto transition-all duration-300 min-h-[calc(100vh-64px)] pb-24">
+<!-- Header -->
+<header class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="font-mono-data text-mono-data text-secondary border border-secondary/30 bg-secondary/10 px-2 py-0.5 rounded text-[10px] tracking-wider uppercase">Active Pipeline</span>
+<span class="text-outline text-sm">Req ID: #SI-2026-SA99</span>
+</div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface flex items-center gap-3">
+                    Systems Architect
+                </h1>
+<div class="text-primary-fixed-dim text-lg mt-1 font-medium">Stark Industries</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="neo-button px-4 py-2 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                    EDIT LOG
+                </button>
+<button class="neo-button neo-button-primary px-4 py-2 rounded font-label-sm text-label-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+                    FOLLOW UP
+                </button>
+</div>
+</header>
+<!-- Split Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- LEFT COLUMN (Job Info & Docs) -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Company & Overview Pane -->
+<section class="glass-pane rounded-lg p-6">
+<div class="flex items-start gap-4 mb-6">
+<div class="w-12 h-12 rounded glass-floating flex items-center justify-center flex-shrink-0 relative overflow-hidden border border-white/10">
+<!-- Stark Industries Logo Placeholder -->
+<span class="material-symbols-outlined text-3xl text-outline-variant">factory</span>
+<div class="absolute inset-0 bg-white/10"></div>
+</div>
+<div class="flex-1">
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="font-mono-data text-[10px] border border-outline-variant text-on-surface-variant px-2 py-1 rounded-sm bg-surface-container-low/50">ON-SITE</span>
+<span class="font-mono-data text-[10px] border border-outline-variant text-on-surface-variant px-2 py-1 rounded-sm bg-surface-container-low/50">NEW YORK, NY</span>
+<span class="font-mono-data text-[10px] border border-secondary/40 text-secondary px-2 py-1 rounded-sm bg-secondary/10">$180K - $220K</span>
+</div>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                                Lead the architectural design for next-generation decentralized arc-reactor microgrids. Requires deep expertise in distributed systems, quantum cryptography protocols, and high-availability infrastructure. 
+                            </p>
+</div>
+</div>
+</section>
+<!-- Documents Area -->
+<section class="glass-pane rounded-lg p-6">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">folder</span>
+                        Artifacts &amp; Documents
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Resume Doc -->
+<div class="border border-outline-variant/30 rounded p-4 bg-surface-container-low/30 hover:bg-surface-container-high/40 transition-colors group cursor-pointer flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded glass-floating flex items-center justify-center text-primary-fixed-dim">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface">RESUME_V4_QUANTUM.PDF</div>
+<div class="font-mono-data text-[10px] text-outline mt-1">Uploaded: 24.10.2026</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">download</span>
+</div>
+<!-- Cover Letter Doc -->
+<div class="border border-outline-variant/30 rounded p-4 bg-surface-container-low/30 hover:bg-surface-container-high/40 transition-colors group cursor-pointer flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded glass-floating flex items-center justify-center text-secondary-fixed">
+<span class="material-symbols-outlined">subject</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface">COVER_STARK_TAILORED.DOCX</div>
+<div class="font-mono-data text-[10px] text-outline mt-1">Uploaded: 24.10.2026</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">download</span>
+</div>
+</div>
+</section>
+<!-- Notes Section -->
+<section class="glass-pane rounded-lg p-6 flex-1">
+<div class="flex items-center justify-between mb-4">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[20px]">edit_note</span>
+                            Tactical Notes
+                        </h2>
+<button class="text-primary-fixed-dim hover:text-primary-fixed text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">add</span> Add Note
+                        </button>
+</div>
+<div class="space-y-4">
+<div class="border-l-2 border-primary-fixed-dim pl-4 py-1">
+<div class="font-mono-data text-[10px] text-outline mb-1">SYS_LOG: 26.10.2026 - 14:32 PST</div>
+<p class="text-sm text-on-surface-variant">Review the latest whitepaper on decentralized grids before the technical screen. Need to formulate 3 strong questions regarding their scalability limits.</p>
+</div>
+<div class="border-l-2 border-outline-variant pl-4 py-1">
+<div class="font-mono-data text-[10px] text-outline mb-1">USER_ENTRY: 24.10.2026 - 09:15 PST</div>
+<p class="text-sm text-on-surface-variant">Application submitted via portal. Recruiter (Pepper P.) mentioned on LinkedIn they are moving fast on this role.</p>
+</div>
+</div>
+<div class="mt-6 relative">
+<textarea class="w-full bg-surface-container-lowest/50 border-0 border-b border-outline-variant/30 focus:border-primary-fixed-dim text-on-surface text-sm p-3 focus:ring-0 focus:outline-none transition-colors placeholder:text-outline/40 resize-none h-20" placeholder="Enter new operational data..."></textarea>
+</div>
+</section>
+</div>
+<!-- RIGHT COLUMN (Tracker & Score) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Match Score Pane -->
+<section class="glass-pane rounded-lg p-6 flex flex-col items-center text-center">
+<h3 class="font-label-sm text-label-sm text-outline tracking-widest uppercase mb-6">AI Match Analysis</h3>
+<div class="relative w-40 h-40 mb-4">
+<!-- Background Circle -->
+<svg class="w-full h-full -rotate-90" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="none" r="45" stroke="rgba(255, 255, 255, 0.05)" stroke-width="4"></circle>
+<!-- Progress Circle (Emerald Green) -->
+<circle class="drop-shadow-[0_0_8px_rgba(78,222,163,0.6)] transition-all duration-1000 ease-out" cx="50" cy="50" fill="none" r="45" stroke="#4edea3" stroke-dasharray="283" stroke-dashoffset="34" stroke-width="4"></circle>
+</svg>
+<!-- Inner Score -->
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-display text-4xl font-bold text-secondary">88<span class="text-xl">%</span></span>
+<span class="font-mono-data text-[10px] text-secondary/70">HIGH PROBABILITY</span>
+</div>
+</div>
+<div class="w-full space-y-2 mt-4 text-left">
+<div class="flex justify-between items-center text-xs">
+<span class="text-on-surface-variant">Skill Alignment</span>
+<span class="text-secondary font-mono-data">92%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[92%]"></div>
+</div>
+<div class="flex justify-between items-center text-xs mt-3">
+<span class="text-on-surface-variant">Exp. Match</span>
+<span class="text-tertiary-fixed-dim font-mono-data">76%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+<div class="bg-tertiary-fixed-dim h-full w-[76%]"></div>
+</div>
+</div>
+</section>
+<!-- Process Tracker -->
+<section class="glass-pane rounded-lg p-6 flex-1">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-outline-variant text-[20px]">route</span>
+                        Vector Pathway
+                    </h3>
+<div class="relative pl-6 space-y-8">
+<!-- Completed Node -->
+<div class="relative timeline-node">
+<div class="absolute -left-[30px] top-1 w-3 h-3 rounded-full bg-secondary shadow-[0_0_8px_rgba(78,222,163,0.8)] border-2 border-background z-10"></div>
+<div>
+<div class="font-label-sm text-label-sm text-secondary">APPLICATION SUBMITTED</div>
+<div class="font-mono-data text-[10px] text-outline mt-1">24.10.2026 - CONFIRMED</div>
+</div>
+</div>
+<!-- Active Node -->
+<div class="relative timeline-node">
+<div class="absolute -left-[32px] top-0 w-4 h-4 rounded-full border-2 border-primary-fixed-dim bg-background z-10 flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-primary-fixed-dim animate-pulse"></div>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-primary-fixed-dim">TECHNICAL SCREEN</div>
+<div class="font-mono-data text-[10px] text-primary-fixed-dim/70 mt-1">02.11.2026 - 10:00 PST</div>
+<div class="mt-2 bg-surface-container-low/50 border border-primary-fixed-dim/20 p-2 rounded text-xs text-on-surface-variant flex items-start gap-2">
+<span class="material-symbols-outlined text-[14px] text-primary-fixed-dim">videocam</span>
+<span>Zoom link pending. Prepare system design docs.</span>
+</div>
+</div>
+</div>
+<!-- Pending Node -->
+<div class="relative timeline-node opacity-50">
+<div class="absolute -left-[29px] top-1 w-2.5 h-2.5 rounded-full bg-outline-variant border-2 border-background z-10"></div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface">ONSITE LOOP</div>
+<div class="font-mono-data text-[10px] text-outline mt-1">PENDING</div>
+</div>
+</div>
+<!-- Pending Node -->
+<div class="relative timeline-node opacity-50">
+<div class="absolute -left-[29px] top-1 w-2.5 h-2.5 rounded-full bg-outline-variant border-2 border-background z-10"></div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface">OFFER PHASE</div>
+<div class="font-mono-data text-[10px] text-outline mt-1">PENDING</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</body></html>

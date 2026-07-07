@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NEO-HIRE | Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Hanken+Grotesk:wght@100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#006a71",
+                        "surface-bright": "#333b3b",
+                        "tertiary-fixed-dim": "#eec200",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "secondary": "#4edea3",
+                        "surface-dim": "#0d1515",
+                        "on-surface": "#dce4e4",
+                        "outline-variant": "#3a494b",
+                        "surface": "#0d1515",
+                        "on-surface-variant": "#b9cacb",
+                        "primary-container": "#00f2ff",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#2e3637",
+                        "inverse-on-surface": "#2a3232",
+                        "on-primary-fixed-variant": "#004f54",
+                        "error-container": "#93000a",
+                        "secondary-container": "#00a572",
+                        "tertiary-fixed": "#ffe083",
+                        "secondary-fixed-dim": "#4edea3",
+                        "secondary-fixed": "#6ffbbe",
+                        "outline": "#849495",
+                        "tertiary-container": "#ffd753",
+                        "surface-tint": "#00dbe7",
+                        "surface-container-low": "#151d1e",
+                        "background": "#0d1515",
+                        "surface-container-highest": "#2e3637",
+                        "inverse-surface": "#dce4e4",
+                        "primary-fixed-dim": "#00dbe7",
+                        "on-primary": "#00363a",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#74f5ff",
+                        "surface-container": "#192122",
+                        "on-secondary-container": "#00311f",
+                        "on-primary-fixed": "#002022",
+                        "on-background": "#dce4e4",
+                        "tertiary": "#fff6e7",
+                        "on-tertiary-container": "#745d00",
+                        "on-secondary-fixed": "#002113",
+                        "on-secondary": "#003824",
+                        "on-error": "#690005",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-tertiary-fixed": "#231b00",
+                        "inverse-primary": "#00696f",
+                        "on-tertiary": "#3c2f00",
+                        "surface-container-high": "#232b2c",
+                        "surface-container-lowest": "#080f10",
+                        "primary": "#e1fdff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "mono-data": ["Geist"],
+                        "label-sm": ["Geist"],
+                        "body-md": ["Inter"],
+                        "display": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "mono-data": ["14px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display": ["48px", { "lineHeight": "1.1", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .precision-border {
+            border: 1px solid;
+            border-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05)) 1;
+        }
+        .pane-level-1 {
+            background-color: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+        }
+        .neo-glass-btn {
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        .neo-glass-btn:hover {
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.5);
+            background-color: rgba(0, 242, 255, 0.1);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(13, 21, 21, 0.5); 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(0, 242, 255, 0.3); 
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 242, 255, 0.6); 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md h-screen overflow-hidden flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface/60 dark:bg-surface/60 backdrop-blur-xl border-b border-outline-variant/30 shadow-[0_0_15px_rgba(0,242,255,0.1)] sticky top-0 z-50 flex justify-between items-center px-gutter py-unit h-16 w-full hidden md:flex">
+<div class="flex items-center gap-gutter">
+<span class="font-display text-display text-primary-fixed-dim tracking-widest text-[24px]">NEO-HIRE</span>
+<div class="relative ml-8 group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-outline-variant group-focus-within:text-primary-fixed-dim transition-colors">search</span>
+<input class="bg-surface-container-low text-on-surface border-b border-outline-variant/50 focus:border-primary-fixed-dim focus:ring-0 pl-10 pr-4 py-2 w-64 bg-transparent transition-all placeholder:text-outline-variant/50 font-mono-data text-mono-data focus:outline-none" placeholder="Search applications..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-on-surface-variant hover:text-primary-fixed-dim transition-colors group relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-primary-fixed-dim rounded-full shadow-[0_0_5px_rgba(0,242,255,1)]"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary-fixed-dim transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full border border-primary-fixed-dim/50 overflow-hidden relative">
+<img alt="User profile with active status indicator" class="w-full h-full object-cover" data-alt="A futuristic avatar of a system administrator, cybernetic enhancements, sharp lighting, neon blue undertones, minimalist framing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqo3AyMXy9iDUFDF5BiJxTp2fb07dUBiaRry34oZGxxHjTBqndrczJh8MVKO1DnBms1xqKAUh0pvPeNW2hb_eln18_9HlWMlzlTDylyuN7wGEOSkzK8XN_UtVJAXJ1fuy1thfwtxc0f-HO8cSlOqiz8YZqNEhjmElpm9Z0rakr6x6rS81O0RoeazK2DydJZsY15V3VyMfNhcPFBdeyvuGIfwK9Ts96JSrVJemnxEJ44iitKJtehN659pKCYfdBcPodZ8MYJcwlAjk"/>
+</div>
+</div>
+</nav>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<aside class="bg-surface-container-low/80 dark:bg-surface-container-low/80 backdrop-blur-2xl border-r border-outline-variant/20 h-full w-20 hover:w-64 transition-all duration-300 ease-in-out fixed left-0 top-16 flex flex-col z-40 overflow-hidden group hidden md:flex">
+<div class="p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-4 whitespace-nowrap overflow-hidden">
+<div class="w-10 h-10 rounded-full border border-outline-variant/50 overflow-hidden shrink-0">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="A highly detailed close-up of a high-tech glowing blue geometric core, representing a system admin profile, dark obsidian background, sharp reflections." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfkpWcj3J9K7u3pcjabdbCSG2QhqALmstRonpogavXr8hxBEZ3Xz8GnxmY38zTEIBH4O3znHMKGTiYDXLOsxq6XhtqRhX9cNKFQP4VkAL9AZDFt21DJDC85WSV7mGBdiEOnJSVnsQp1OHEvTtO6rKYyiMRS530sWBLC2zwptmboCIleafjHoVgOLEpBTXCOHvgoBth8gC00EkBkqhTG7xhUCJpo5c9ft-3Bflpusw1U7jjIxrnefNhNtg-EmT-Ic9bEiJ5WCE7Uyk"/>
+</div>
+<div>
+<div class="font-headline-md text-headline-md text-on-surface">System Admin</div>
+<div class="font-label-sm text-label-sm text-primary-fixed-dim">Precision Mode</div>
+</div>
+</div>
+<div class="px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 overflow-hidden">
+<button class="w-full neo-glass-btn bg-surface-container py-3 px-4 flex items-center justify-center gap-2 whitespace-nowrap text-primary-fixed-dim font-label-sm text-label-sm uppercase tracking-wider">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                    New Application
+                </button>
+</div>
+<nav class="flex-1 mt-6 flex flex-col gap-2 px-2">
+<a class="flex items-center gap-4 p-3 rounded text-primary-fixed-dim border-l-4 border-primary-fixed-dim bg-primary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined shrink-0 ml-1">dashboard</span>
+<span class="font-label-sm text-label-sm uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-colors border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined shrink-0 ml-1">work</span>
+<span class="font-label-sm text-label-sm uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Jobs</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-colors border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined shrink-0 ml-1">analytics</span>
+<span class="font-label-sm text-label-sm uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Analytics</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-colors border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined shrink-0 ml-1">event_upcoming</span>
+<span class="font-label-sm text-label-sm uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Interviews</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-colors border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined shrink-0 ml-1">settings</span>
+<span class="font-label-sm text-label-sm uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Settings</span>
+</a>
+</nav>
+<div class="mt-auto mb-20 flex flex-col gap-2 px-2 pb-4">
+<a class="flex items-center gap-4 p-3 rounded text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-colors border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined shrink-0 ml-1">help_outline</span>
+<span class="font-label-sm text-label-sm uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Support</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded text-on-surface-variant hover:text-primary-fixed hover:bg-surface-variant/30 transition-colors border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined shrink-0 ml-1">logout</span>
+<span class="font-label-sm text-label-sm uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 md:ml-20 flex flex-col h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-surface-container-high/50 via-background to-background pt-4 md:pt-0 pb-16 md:pb-0">
+<header class="px-margin-desktop py-8 flex justify-between items-end shrink-0">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Active Pipeline</h1>
+<p class="font-mono-data text-mono-data text-outline-variant mt-2 tracking-widest uppercase">System Status: Optimal. 12 Tracks Active.</p>
+</div>
+<div class="flex gap-4">
+<button class="neo-glass-btn px-6 py-3 flex items-center gap-2 text-primary-fixed-dim bg-primary-fixed-dim/10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">New Application</span>
+</button>
+</div>
+</header>
+<!-- Kanban Board -->
+<div class="flex-1 overflow-x-auto overflow-y-hidden custom-scrollbar px-margin-desktop pb-8 flex gap-6 items-start">
+<!-- Column: Potential -->
+<div class="w-80 shrink-0 flex flex-col h-full">
+<div class="flex items-center justify-between mb-4 border-b border-outline-variant/30 pb-2">
+<h2 class="font-headline-md text-headline-md text-on-surface">Potential</h2>
+<span class="bg-surface-variant/50 text-outline px-2 py-1 font-mono-data text-mono-data rounded">3</span>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-4 pr-2 pb-4">
+<!-- Card 1 -->
+<div class="pane-level-1 precision-border p-[1px] group cursor-pointer hover:-translate-y-1 transition-transform duration-300">
+<div class="bg-surface-container-low/80 p-6 flex flex-col gap-4 h-full relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-primary-fixed-dim/10 to-transparent pointer-events-none"></div>
+<div class="flex justify-between items-start">
+<div class="w-10 h-10 bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center">
+<span class="font-display text-primary-fixed-dim font-bold">ST</span>
+</div>
+<div class="font-mono-data text-mono-data text-outline-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 2d
+                                    </div>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Stark Industries</h3>
+<p class="font-label-sm text-label-sm text-primary-fixed-dim uppercase tracking-wider mt-1">Systems Architect</p>
+</div>
+<div class="mt-2 flex gap-2">
+<span class="px-2 py-1 border border-outline-variant/50 bg-black/20 text-outline font-mono-data text-[10px] uppercase">Remote</span>
+<span class="px-2 py-1 border border-outline-variant/50 bg-black/20 text-outline font-mono-data text-[10px] uppercase">$180k</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="pane-level-1 precision-border p-[1px] group cursor-pointer hover:-translate-y-1 transition-transform duration-300">
+<div class="bg-surface-container-low/80 p-6 flex flex-col gap-4 h-full relative overflow-hidden">
+<div class="flex justify-between items-start">
+<div class="w-10 h-10 bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center">
+<span class="font-display text-primary-fixed-dim font-bold">MC</span>
+</div>
+<div class="font-mono-data text-mono-data text-outline-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 5d
+                                    </div>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Massive Dynamic</h3>
+<p class="font-label-sm text-label-sm text-primary-fixed-dim uppercase tracking-wider mt-1">Senior Data Eng</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Applied -->
+<div class="w-80 shrink-0 flex flex-col h-full">
+<div class="flex items-center justify-between mb-4 border-b border-primary-fixed-dim/30 pb-2">
+<h2 class="font-headline-md text-headline-md text-primary-fixed-dim">Applied</h2>
+<span class="bg-primary-fixed-dim/20 text-primary-fixed-dim px-2 py-1 font-mono-data text-mono-data rounded border border-primary-fixed-dim/30">2</span>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-4 pr-2 pb-4">
+<!-- Card 3 -->
+<div class="pane-level-1 precision-border p-[1px] group cursor-pointer hover:-translate-y-1 transition-transform duration-300 relative before:absolute before:inset-y-0 before:left-0 before:w-[2px] before:bg-primary-fixed-dim">
+<div class="bg-surface-container-low/80 p-6 flex flex-col gap-4 h-full relative overflow-hidden">
+<div class="flex justify-between items-start">
+<div class="w-10 h-10 bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center">
+<span class="font-display text-primary-fixed-dim font-bold">WY</span>
+</div>
+<div class="font-mono-data text-mono-data text-outline-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 12d
+                                    </div>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Weyland-Yutani</h3>
+<p class="font-label-sm text-label-sm text-primary-fixed-dim uppercase tracking-wider mt-1">Core Dev</p>
+</div>
+<div class="mt-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+<span class="font-mono-data text-mono-data text-outline-variant text-[12px]">Application Sent</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: In-Progress -->
+<div class="w-80 shrink-0 flex flex-col h-full">
+<div class="flex items-center justify-between mb-4 border-b border-secondary/30 pb-2">
+<h2 class="font-headline-md text-headline-md text-secondary">In-Progress</h2>
+<span class="bg-secondary/20 text-secondary px-2 py-1 font-mono-data text-mono-data rounded border border-secondary/30">1</span>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-4 pr-2 pb-4">
+<!-- Card 4 -->
+<div class="pane-level-1 border border-secondary/30 shadow-[0_0_15px_rgba(78,222,163,0.1)] p-[1px] group cursor-pointer hover:-translate-y-1 transition-transform duration-300 relative before:absolute before:inset-y-0 before:left-0 before:w-[2px] before:bg-secondary">
+<div class="bg-surface-container-low/90 p-6 flex flex-col gap-4 h-full relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+<div class="flex justify-between items-start">
+<div class="w-10 h-10 bg-white/5 backdrop-blur-sm border border-secondary/30 flex items-center justify-center">
+<span class="font-display text-secondary font-bold">CS</span>
+</div>
+<div class="font-mono-data text-mono-data text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Active
+                                    </div>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Cyberdyne Systems</h3>
+<p class="font-label-sm text-label-sm text-secondary uppercase tracking-wider mt-1">AI Lead</p>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant/30">
+<p class="font-mono-data text-mono-data text-outline-variant mb-2 text-[12px]">Next Action</p>
+<div class="flex items-center justify-between bg-black/30 p-2 rounded border border-outline-variant/20">
+<span class="font-label-sm text-label-sm text-on-surface">Tech Screen</span>
+<span class="font-mono-data text-mono-data text-primary-fixed-dim text-[11px]">Tomorrow</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Final Stage -->
+<div class="w-80 shrink-0 flex flex-col h-full">
+<div class="flex items-center justify-between mb-4 border-b border-tertiary-fixed-dim/30 pb-2">
+<h2 class="font-headline-md text-headline-md text-tertiary-fixed-dim">Final Stage</h2>
+<span class="bg-tertiary-fixed-dim/20 text-tertiary-fixed-dim px-2 py-1 font-mono-data text-mono-data rounded border border-tertiary-fixed-dim/30">0</span>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-4 pr-2 pb-4">
+<div class="h-full border border-dashed border-outline-variant/20 flex flex-col items-center justify-center text-outline-variant p-6 text-center">
+<span class="material-symbols-outlined text-[32px] mb-2 opacity-50">radar</span>
+<p class="font-mono-data text-mono-data">Awaiting candidates to reach final perimeter.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer (Mobile Only) -->
+<footer class="bg-surface-container-lowest/90 border-t border-outline-variant/10 fixed bottom-0 w-full flex justify-between items-center px-gutter py-2 z-30 md:hidden backdrop-blur-md">
+<a class="flex flex-col items-center p-2 text-primary-fixed-dim" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-sm text-[10px] mt-1">Dash</span>
+</a>
+<a class="flex flex-col items-center p-2 text-outline" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="font-label-sm text-[10px] mt-1">Jobs</span>
+</a>
+<div class="relative -top-5">
+<button class="w-12 h-12 rounded-full neo-glass-btn bg-surface-container flex items-center justify-center text-primary-fixed-dim">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<a class="flex flex-col items-center p-2 text-outline" href="#">
+<span class="material-symbols-outlined">event_upcoming</span>
+<span class="font-label-sm text-[10px] mt-1">Interviews</span>
+</a>
+<a class="flex flex-col items-center p-2 text-outline" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-[10px] mt-1">Settings</span>
+</a>
+</footer>
+</body></html>
