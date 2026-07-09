@@ -1,8 +1,8 @@
 from collections.abc import Callable
 
 import jwt
-from fastapi import Depends, Header, HTTPException, status
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from fastapi import Depends, HTTPException, status
+from fastapi.security import APIKeyHeader, HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -11,7 +11,17 @@ from app.services.api_keys import find_valid_api_key, is_api_key_expired, mark_a
 from app.services.security import decode_access_token
 from app.services.users import get_user_by_id
 
-bearer_scheme = HTTPBearer(auto_error=False)
+bearer_scheme = HTTPBearer(
+    auto_error=False,
+    scheme_name="BearerAuth",
+    description="JWT access token from /api/v1/auth/login.",
+)
+api_key_scheme = APIKeyHeader(
+    name="X-API-Key",
+    auto_error=False,
+    scheme_name="ApiKeyAuth",
+    description="API key created from /api/v1/api-keys.",
+)
 
 
 def authentication_error(detail: str = "Authentication required") -> HTTPException:
@@ -63,7 +73,7 @@ def get_current_user_from_jwt(
 
 def get_current_user(
     credentials: HTTPAuthorizationCredentials | None = Depends(bearer_scheme),
-    x_api_key: str | None = Header(default=None, alias="X-API-Key"),
+    x_api_key: str | None = Depends(api_key_scheme),
     db: Session = Depends(get_db),
 ) -> User:
     if credentials is not None:

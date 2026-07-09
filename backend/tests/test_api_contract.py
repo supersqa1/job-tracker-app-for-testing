@@ -29,3 +29,27 @@ def test_applications_are_served_from_versioned_api_only():
 
     assert versioned_response.status_code == 401
     assert legacy_response.status_code == 404
+
+
+def test_openapi_documents_jwt_and_api_key_authentication():
+    schema = app.openapi()
+    security_schemes = schema["components"]["securitySchemes"]
+
+    assert security_schemes["BearerAuth"] == {
+        "type": "http",
+        "description": "JWT access token from /api/v1/auth/login.",
+        "scheme": "bearer",
+    }
+    assert security_schemes["ApiKeyAuth"] == {
+        "type": "apiKey",
+        "description": "API key created from /api/v1/api-keys.",
+        "in": "header",
+        "name": "X-API-Key",
+    }
+
+    list_applications = schema["paths"]["/api/v1/applications"]["get"]
+    assert {"BearerAuth": []} in list_applications["security"]
+    assert {"ApiKeyAuth": []} in list_applications["security"]
+    assert "X-API-Key" not in {
+        parameter["name"] for parameter in list_applications.get("parameters", [])
+    }
