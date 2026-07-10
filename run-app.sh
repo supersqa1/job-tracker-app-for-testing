@@ -5,12 +5,22 @@ ROOT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 BACKEND_DIR="$ROOT_DIR/backend"
 VENV_PYTHON="$BACKEND_DIR/.venv/bin/python"
 VENV_DIR="$BACKEND_DIR/.venv"
+STATIC_INDEX="$BACKEND_DIR/static/index.html"
 
 HOST="${HOST:-0.0.0.0}"
 PORT="${PORT:-3050}"
 
 echo "Starting SuperSQA Job Tracker"
 echo "Backend folder: $BACKEND_DIR"
+
+if [ ! -f "$STATIC_INDEX" ]; then
+  echo "============================================================"
+  echo "Packaged frontend was not found."
+  echo "Expected file: $STATIC_INDEX"
+  echo "Run ./build-course-app.sh first, then run ./run-app.sh again."
+  echo "============================================================"
+  exit 1
+fi
 
 cd "$BACKEND_DIR"
 

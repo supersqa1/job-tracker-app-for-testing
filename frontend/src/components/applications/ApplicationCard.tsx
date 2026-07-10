@@ -46,12 +46,12 @@ export function ApplicationCard({
       }}
       onClick={() => {
         if (didDragRef.current) return;
-        router.push(`/jobs/${application.id}`);
+        router.push(`/jobs/detail?id=${application.id}`);
       }}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
-          router.push(`/jobs/${application.id}`);
+          router.push(`/jobs/detail?id=${application.id}`);
         }
       }}
       role="link"

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev -p 8050",
     "build": "next build",
+    "build:course": "next build",
     "start": "next start -p 8050",
     "lint": "eslint",
     "test": "vitest run",

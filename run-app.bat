@@ -4,12 +4,22 @@ setlocal EnableDelayedExpansion
 set "ROOT_DIR=%~dp0"
 set "BACKEND_DIR=%ROOT_DIR%backend"
 set "VENV_DIR=%BACKEND_DIR%\.venv"
+set "STATIC_INDEX=%BACKEND_DIR%\static\index.html"
 
 if "%HOST%"=="" set "HOST=0.0.0.0"
 if "%PORT%"=="" set "PORT=3050"
 
 echo Starting SuperSQA Job Tracker
 echo Backend folder: %BACKEND_DIR%
+
+if not exist "%STATIC_INDEX%" (
+  echo ============================================================
+  echo Packaged frontend was not found.
+  echo Expected file: %STATIC_INDEX%
+  echo Run build-course-app.bat first, then run run-app.bat again.
+  echo ============================================================
+  exit /b 1
+)
 
 cd /d "%BACKEND_DIR%"
 
