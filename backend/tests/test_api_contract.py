@@ -3,12 +3,13 @@ from fastapi.testclient import TestClient
 from app.main import app
 
 
-def test_root_advertises_versioned_api_base():
+def test_root_serves_packaged_frontend_when_available():
     with TestClient(app) as client:
         response = client.get("/")
 
     assert response.status_code == 200
-    assert response.json()["api_base"] == "/api/v1"
+    assert "text/html" in response.headers["content-type"]
+    assert "SuperSQA Job Tracker" in response.text
 
 
 def test_health_check_is_available_at_convenience_and_versioned_paths():
@@ -29,6 +30,15 @@ def test_applications_are_served_from_versioned_api_only():
 
     assert versioned_response.status_code == 401
     assert legacy_response.status_code == 404
+
+
+def test_packaged_frontend_routes_are_served_by_backend():
+    with TestClient(app) as client:
+        response = client.get("/jobs/detail?id=1")
+
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "SuperSQA Job Tracker" in response.text
 
 
 def test_openapi_documents_jwt_and_api_key_authentication():

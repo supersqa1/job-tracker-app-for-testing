@@ -21,6 +21,7 @@ SuperSQA Job Tracker helps users manage job applications, interviews, follow-ups
   - [Database File](#database-file)
   - [Easy Run for Courses](#easy-run-for-courses)
   - [Development Run](#development-run)
+  - [Updating the Packaged Frontend](#updating-the-packaged-frontend)
 - [3. Login Accounts](#3-login-accounts)
 - [4. API and Authentication](#4-api-and-authentication)
   - [Swagger](#swagger)
@@ -148,6 +149,13 @@ The backend will create a fresh database with the seeded data again.
 
 Course Mode is the student-friendly way to run the stable app. It should only require Python. Students should not need to install Node.js or run the frontend separately.
 
+In this mode, FastAPI serves both:
+
+- the API
+- the packaged frontend from `backend/static`
+
+The packaged frontend is already included in the repo. Students do not need to build it.
+
 The easiest option is to run the script from the project root.
 
 macOS or Linux:
@@ -174,6 +182,7 @@ The script does these steps for you:
 - Uses the existing `backend/.venv` if it already exists.
 - Installs backend dependencies.
 - Creates `backend/.env` from `backend/.env.example` if needed.
+- Uses the packaged frontend from `backend/static`.
 - Starts the app on port `3050`.
 
 Then open:
@@ -301,6 +310,50 @@ Windows scripts are also included:
 - `start-backend.ps1`
 - `start-frontend.bat`
 - `start-frontend.ps1`
+
+---
+
+### Updating the Packaged Frontend
+
+Development mode is where you change the frontend source code.
+
+Easy mode uses the packaged copy in:
+
+```text
+backend/static
+```
+
+If you change the frontend and want easy mode to serve the new UI, rebuild the packaged copy from the project root.
+
+macOS or Linux:
+
+```bash
+./build-course-app.sh
+```
+
+Windows Command Prompt:
+
+```bat
+build-course-app.bat
+```
+
+Windows PowerShell:
+
+```powershell
+.\build-course-app.ps1
+```
+
+That script:
+
+- builds the frontend into `frontend/out`
+- clears the old `backend/static` files
+- copies the fresh build into `backend/static`
+
+After that, run easy mode again:
+
+```bash
+./run-app.sh
+```
 
 ---
 

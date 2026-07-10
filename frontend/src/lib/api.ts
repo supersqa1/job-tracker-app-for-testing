@@ -15,7 +15,10 @@ import type {
 } from "./types";
 import { getAuthToken } from "./auth";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3050";
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL === "__SAME_ORIGIN__"
+    ? ""
+    : process.env.NEXT_PUBLIC_API_URL ?? "";
 const API_VERSION_PREFIX = "/api/v1";
 
 interface ApiErrorDetail {

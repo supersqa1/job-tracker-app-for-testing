@@ -15,7 +15,7 @@ import type { JobApplication, User } from "@/lib/types";
 import { cn, formatRelativeDays, getInitials } from "@/lib/utils";
 
 interface JobDetailClientProps {
-  applicationId: number;
+  applicationId: number | null;
 }
 
 export function JobDetailClient({ applicationId }: JobDetailClientProps) {
@@ -25,6 +25,12 @@ export function JobDetailClient({ applicationId }: JobDetailClientProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   const loadDetail = useCallback(async () => {
+    if (applicationId === null) {
+      setIsLoading(false);
+      setError("Missing application ID.");
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
     try {

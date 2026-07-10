@@ -1,12 +1,22 @@
 $RootDir = $PSScriptRoot
 $BackendDir = Join-Path $RootDir "backend"
 $VenvDir = Join-Path $BackendDir ".venv"
+$StaticIndex = Join-Path $BackendDir "static/index.html"
 
 $BindHost = if ($env:HOST) { $env:HOST } else { "0.0.0.0" }
 $Port = if ($env:PORT) { $env:PORT } else { "3050" }
 
 Write-Host "Starting SuperSQA Job Tracker"
 Write-Host "Backend folder: $BackendDir"
+
+if (-not (Test-Path $StaticIndex)) {
+  Write-Host "============================================================"
+  Write-Host "Packaged frontend was not found."
+  Write-Host "Expected file: $StaticIndex"
+  Write-Host "Run .\build-course-app.ps1 first, then run .\run-app.ps1 again."
+  Write-Host "============================================================"
+  exit 1
+}
 
 Set-Location $BackendDir
 

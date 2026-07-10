@@ -93,7 +93,7 @@ describe("api client", () => {
     await getApplicationsPage({ limit: 10, offset: 20, search: "qa" });
 
     expect(fetchMock.mock.calls[0][0]).toBe(
-      "http://localhost:3050/api/v1/applications?paginated=true&search=qa&limit=10&offset=20",
+      "/api/v1/applications?paginated=true&search=qa&limit=10&offset=20",
     );
   });
 });
