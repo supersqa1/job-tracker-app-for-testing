@@ -63,3 +63,6 @@ def test_openapi_documents_jwt_and_api_key_authentication():
     assert "X-API-Key" not in {
         parameter["name"] for parameter in list_applications.get("parameters", [])
     }
+
+    admin_status = schema["paths"]["/api/v1/admin/status"]["get"]
+    assert admin_status["security"] == [{"BearerAuth": []}]

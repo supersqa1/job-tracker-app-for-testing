@@ -2,7 +2,7 @@
 
 Next.js frontend for the job application tracker, styled with the Aura Executive design system.
 
-See [docs/DESIGN_SYSTEM.md](../docs/DESIGN_SYSTEM.md) for UI rules and tokens.
+See [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) for UI rules and tokens.
 
 ## Setup
 

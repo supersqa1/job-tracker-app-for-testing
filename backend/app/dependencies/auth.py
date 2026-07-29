@@ -118,3 +118,15 @@ def require_role(required_role: UserRole) -> Callable[[User], User]:
         return current_user
 
     return role_dependency
+
+
+def require_jwt_role(required_role: UserRole) -> Callable[[User], User]:
+    def role_dependency(current_user: User = Depends(get_current_user_from_jwt)) -> User:
+        if current_user.role != required_role:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Insufficient permissions",
+            )
+        return current_user
+
+    return role_dependency
