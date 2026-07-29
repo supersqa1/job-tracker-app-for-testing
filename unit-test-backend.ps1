@@ -4,39 +4,43 @@ $VenvDir = Join-Path $BackendDir ".venv"
 
 Set-Location $BackendDir
 
-$PythonCommand = Get-Command py -ErrorAction SilentlyContinue
-$PythonArgs = @("-3")
-if ($PythonCommand) {
-  & $PythonCommand.Source @PythonArgs --version *> $null
-  if ($LASTEXITCODE -ne 0) {
-    $PythonCommand = $null
+$PythonCommand = $null
+$PythonArgs = @()
+$Candidates = @(
+  @{ Command = "py"; Args = @("-3") },
+  @{ Command = "python"; Args = @() },
+  @{ Command = "python3"; Args = @() },
+  @{ Command = "py"; Args = @("-3.13") },
+  @{ Command = "py"; Args = @("-3.12") },
+  @{ Command = "py"; Args = @("-3.11") }
+)
+
+foreach ($Candidate in $Candidates) {
+  $Command = Get-Command $Candidate.Command -ErrorAction SilentlyContinue
+  if (-not $Command) {
+    continue
   }
-}
-if (-not $PythonCommand) {
-  $PythonCommand = Get-Command python -ErrorAction SilentlyContinue
-  $PythonArgs = @()
-  if ($PythonCommand) {
-    & $PythonCommand.Source @PythonArgs --version *> $null
-    if ($LASTEXITCODE -ne 0) {
-      $PythonCommand = $null
-    }
+
+  $VersionOutput = & $Command.Source @($Candidate.Args) --version 2>&1
+  if ($LASTEXITCODE -ne 0 -or -not ($VersionOutput -match "Python (\d+)\.(\d+)\.(\d+)([A-Za-z].*)?")) {
+    continue
   }
-}
-if (-not $PythonCommand) {
-  $PythonCommand = Get-Command python3 -ErrorAction SilentlyContinue
-  $PythonArgs = @()
-  if ($PythonCommand) {
-    & $PythonCommand.Source @PythonArgs --version *> $null
-    if ($LASTEXITCODE -ne 0) {
-      $PythonCommand = $null
-    }
+
+  $Major = [int]$Matches[1]
+  $Minor = [int]$Matches[2]
+  $Prerelease = $Matches[4]
+  if ($Major -eq 3 -and $Minor -ge 11 -and -not $Prerelease) {
+    $PythonCommand = $Command
+    $PythonArgs = @($Candidate.Args)
+    break
   }
 }
 
 if (-not $PythonCommand) {
   Write-Host "============================================================"
-  Write-Host "Python was not found."
-  Write-Host "Please install Python 3.11 or newer, then run this script again."
+  Write-Host "Supported Python was not found."
+  Write-Host "Please install a stable Python 3.11 or newer, then run this script again."
+  Write-Host "Python alpha, beta, and release-candidate builds are not supported for this course app."
   Write-Host "============================================================"
   exit 1
 }
