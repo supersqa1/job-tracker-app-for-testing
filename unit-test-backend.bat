@@ -8,30 +8,87 @@ cd /d "%BACKEND_DIR%"
 
 py -3 --version >nul 2>nul
 if not errorlevel 1 (
-  set "SYSTEM_PYTHON=py -3"
-  set "PYTHON_PATH=Windows Python launcher"
-) else (
-  python --version >nul 2>nul
-  if not errorlevel 1 (
-    set "SYSTEM_PYTHON=python"
-    for /f "delims=" %%P in ('where python 2^>nul') do (
-      set "PYTHON_PATH=%%P"
+  for /f "tokens=2 delims= " %%V in ('py -3 --version 2^>^&1') do set "PYTHON_NUMBER=%%V"
+  echo !PYTHON_NUMBER! | findstr /R "[A-Za-z]" >nul
+  if errorlevel 1 (
+    for /f "tokens=1,2 delims=." %%A in ("!PYTHON_NUMBER!") do (
+      set "PYTHON_MAJOR=%%A"
+      set "PYTHON_MINOR=%%B"
     )
-  ) else (
-    python3 --version >nul 2>nul
-    if not errorlevel 1 (
-      set "SYSTEM_PYTHON=python3"
-      for /f "delims=" %%P in ('where python3 2^>nul') do (
-        set "PYTHON_PATH=%%P"
-      )
-    ) else (
-      echo ============================================================
-      echo Python was not found.
-      echo Please install Python 3.11 or newer, then run this script again.
-      echo ============================================================
-      exit /b 1
+    if "!PYTHON_MAJOR!"=="3" if !PYTHON_MINOR! GEQ 11 (
+      set "SYSTEM_PYTHON=py -3"
+      set "PYTHON_PATH=Windows Python launcher"
     )
   )
+)
+
+if "!SYSTEM_PYTHON!"=="" (
+  python --version >nul 2>nul
+  if not errorlevel 1 (
+    for /f "tokens=2 delims= " %%V in ('python --version 2^>^&1') do set "PYTHON_NUMBER=%%V"
+    echo !PYTHON_NUMBER! | findstr /R "[A-Za-z]" >nul
+    if errorlevel 1 (
+      for /f "tokens=1,2 delims=." %%A in ("!PYTHON_NUMBER!") do (
+        set "PYTHON_MAJOR=%%A"
+        set "PYTHON_MINOR=%%B"
+      )
+      if "!PYTHON_MAJOR!"=="3" if !PYTHON_MINOR! GEQ 11 (
+        set "SYSTEM_PYTHON=python"
+        set "PYTHON_PATH=python on PATH"
+      )
+    )
+  )
+)
+
+if "!SYSTEM_PYTHON!"=="" (
+  python3 --version >nul 2>nul
+  if not errorlevel 1 (
+    for /f "tokens=2 delims= " %%V in ('python3 --version 2^>^&1') do set "PYTHON_NUMBER=%%V"
+    echo !PYTHON_NUMBER! | findstr /R "[A-Za-z]" >nul
+    if errorlevel 1 (
+      for /f "tokens=1,2 delims=." %%A in ("!PYTHON_NUMBER!") do (
+        set "PYTHON_MAJOR=%%A"
+        set "PYTHON_MINOR=%%B"
+      )
+      if "!PYTHON_MAJOR!"=="3" if !PYTHON_MINOR! GEQ 11 (
+        set "SYSTEM_PYTHON=python3"
+        set "PYTHON_PATH=python3 on PATH"
+      )
+    )
+  )
+)
+
+if "!SYSTEM_PYTHON!"=="" (
+  py -3.13 --version >nul 2>nul
+  if not errorlevel 1 (
+    set "SYSTEM_PYTHON=py -3.13"
+    set "PYTHON_PATH=Windows Python launcher ^(Python 3.13^)"
+  )
+)
+
+if "!SYSTEM_PYTHON!"=="" (
+  py -3.12 --version >nul 2>nul
+  if not errorlevel 1 (
+    set "SYSTEM_PYTHON=py -3.12"
+    set "PYTHON_PATH=Windows Python launcher ^(Python 3.12^)"
+  )
+)
+
+if "!SYSTEM_PYTHON!"=="" (
+  py -3.11 --version >nul 2>nul
+  if not errorlevel 1 (
+    set "SYSTEM_PYTHON=py -3.11"
+    set "PYTHON_PATH=Windows Python launcher ^(Python 3.11^)"
+  )
+)
+
+if "!SYSTEM_PYTHON!"=="" (
+  echo ============================================================
+  echo Supported Python was not found.
+  echo Please install a stable Python 3.11 or newer, then run this script again.
+  echo Python alpha, beta, and release-candidate builds are not supported for this course app.
+  echo ============================================================
+  exit /b 1
 )
 
 for /f "delims=" %%V in ('%SYSTEM_PYTHON% --version 2^>^&1') do set "PYTHON_VERSION=%%V"
@@ -39,7 +96,7 @@ for /f "delims=" %%V in ('%SYSTEM_PYTHON% --version 2^>^&1') do set "PYTHON_VERS
 echo ============================================================
 echo Python setup
 echo Python command: %SYSTEM_PYTHON%
-echo Python path: %PYTHON_PATH%
+echo Python source: %PYTHON_PATH%
 echo Python version: %PYTHON_VERSION%
 echo Virtual environment: %VENV_DIR%
 echo ============================================================
@@ -61,6 +118,7 @@ if not exist ".venv" (
 )
 
 echo Installing backend dependencies...
+echo Runtime Python: %BACKEND_DIR%\.venv\Scripts\python.exe
 ".venv\Scripts\python.exe" -m pip install -r requirements.txt
 
 ".venv\Scripts\python.exe" -m pytest
