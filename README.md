@@ -35,7 +35,7 @@ SuperSQA Job Tracker helps users manage job applications, interviews, follow-ups
 
 ---
 
-## 1. What This Repo Is
+# 1. What This Repo Is
 
 This is a real full-stack app, but this copy is packaged for learning and testing.
 
@@ -64,9 +64,9 @@ Common uses:
 
 ---
 
-## 2. Running the App
+# 2. Running the App
 
-### Environment Files
+## Environment Files
 
 This project uses environment files for local settings like ports, database path, and API URL.
 
@@ -113,7 +113,7 @@ On Windows, you can also copy the files in File Explorer:
 
 Do not delete the `.example` files. They are the templates students can use to create their own local files.
 
-### Database File
+## Database File
 
 The app uses SQLite. SQLite stores the database in one local file:
 
@@ -145,7 +145,7 @@ The backend will create a fresh database with the seeded data again.
 > [!WARNING]
 > Use this mode when you want to run the app for a course, write tests, use Swagger, use Postman, or try the UI as a user. Do not use this mode when you want to change the UI. For real app development, use [Development Run](#development-run).
 
-### Easy Run for Courses
+## Easy Run for Courses
 
 Course Mode is the student-friendly way to run the stable app. It should only require Python. Students should not need to install Node.js or run the frontend separately.
 
@@ -215,7 +215,7 @@ $env:PORT = "3060"
 
 Then open the same URLs with the new port, for example `http://localhost:3060/docs`.
 
-#### Manual Steps
+### Manual Steps
 
 If you do not want to use the script, run the same steps manually.
 
@@ -255,7 +255,7 @@ uvicorn app.main:app --host 0.0.0.0 --port 3050
 
 ---
 
-### Development Run
+## Development Run
 
 Use Development Run when you want to work on the app itself. This mode runs the backend and frontend separately and requires both Python and Node.js.
 
@@ -357,7 +357,7 @@ After that, run easy mode again:
 
 ---
 
-## 3. Login Accounts
+# 3. Login Accounts
 
 These accounts are created automatically when the backend starts:
 
@@ -390,9 +390,9 @@ Registration does not allow choosing a role:
 
 ---
 
-## 4. API and Authentication
+# 4. API and Authentication
 
-### Swagger
+# Swagger
 
 Swagger is available here:
 
@@ -421,11 +421,11 @@ There is also a simple health check:
 /api/health
 ```
 
-### How Authentication Works
+## How Authentication Works
 
 The app supports two common ways to call protected APIs.
 
-### JWT Login
+## JWT Login
 
 JWT is the normal login flow.
 
@@ -451,7 +451,7 @@ Use JWT when:
 - Creating API keys
 - Updating your profile or password
 
-### API Key Authentication
+## API Key Authentication
 
 API keys are for scripts and tools.
 
@@ -472,21 +472,21 @@ API keys can call job application APIs.
 
 API keys cannot manage account security. For example, API keys cannot create more API keys.
 
-### Example API Calls
+## Example API Calls
 
-#### Health Check
+### Health Check
 
 ```bash
 curl http://localhost:3050/api/health
 ```
 
-#### Public Status
+### Public Status
 
 ```bash
 curl http://localhost:3050/api/v1/public/status
 ```
 
-#### Login
+### Login
 
 ```bash
 curl -X POST http://localhost:3050/api/v1/auth/login \
@@ -496,14 +496,14 @@ curl -X POST http://localhost:3050/api/v1/auth/login \
 
 The response includes `access_token`.
 
-#### Call a Protected API with JWT
+### Call a Protected API with JWT
 
 ```bash
 curl http://localhost:3050/api/v1/applications \
   -H "Authorization: Bearer <access_token>"
 ```
 
-#### Call a Paginated API
+### Call a Paginated API
 
 ```bash
 curl "http://localhost:3050/api/v1/applications?paginated=true&limit=10&offset=0" \
@@ -512,7 +512,7 @@ curl "http://localhost:3050/api/v1/applications?paginated=true&limit=10&offset=0
 
 The normal `GET /api/v1/applications` response is still a plain list. Add `paginated=true` when you want pagination metadata.
 
-#### Update Your Profile
+### Update Your Profile
 
 ```bash
 curl -X PATCH http://localhost:3050/api/v1/users/me \
@@ -521,7 +521,7 @@ curl -X PATCH http://localhost:3050/api/v1/users/me \
   -d '{"full_name":"Updated Student"}'
 ```
 
-#### Change Your Password
+### Change Your Password
 
 ```bash
 curl -X POST http://localhost:3050/api/v1/auth/change-password \
@@ -530,7 +530,7 @@ curl -X POST http://localhost:3050/api/v1/auth/change-password \
   -d '{"current_password":"Password123!","new_password":"NewPassword123!"}'
 ```
 
-#### Python Login Example
+### Python Login Example
 
 ```python
 import requests
@@ -554,7 +554,7 @@ applications_response.raise_for_status()
 print(applications_response.json())
 ```
 
-### API Key Management
+## API Key Management
 
 You can create API keys from the app:
 
@@ -590,7 +590,7 @@ curl http://localhost:3050/api/v1/applications \
   -H "X-API-Key: <api_key>"
 ```
 
-### Public and Protected Endpoints
+## Public and Protected Endpoints
 
 Public endpoints do not need login:
 
@@ -629,7 +629,7 @@ JWT or API key endpoints:
 | PATCH | `/api/v1/applications/{id}` | Update application |
 | DELETE | `/api/v1/applications/{id}` | Delete application |
 
-### Errors and Rate Limits
+## Errors and Rate Limits
 
 Errors use the same shape across the API:
 
@@ -673,7 +673,7 @@ Retry-After
 
 ---
 
-## 5. Project Structure
+# 5. Project Structure
 
 ```text
 job-tracker-app-for-testing/
