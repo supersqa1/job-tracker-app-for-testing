@@ -34,7 +34,7 @@ if "!SYSTEM_PYTHON!"=="" (
       )
       if "!PYTHON_MAJOR!"=="3" if !PYTHON_MINOR! GEQ 11 (
         set "SYSTEM_PYTHON=python"
-        for /f "delims=" %%P in ('where python 2^>nul') do set "PYTHON_PATH=%%P"
+        set "PYTHON_PATH=python on PATH"
       )
     )
   )
@@ -52,7 +52,7 @@ if "!SYSTEM_PYTHON!"=="" (
       )
       if "!PYTHON_MAJOR!"=="3" if !PYTHON_MINOR! GEQ 11 (
         set "SYSTEM_PYTHON=python3"
-        for /f "delims=" %%P in ('where python3 2^>nul') do set "PYTHON_PATH=%%P"
+        set "PYTHON_PATH=python3 on PATH"
       )
     )
   )
@@ -96,7 +96,7 @@ for /f "delims=" %%V in ('%SYSTEM_PYTHON% --version 2^>^&1') do set "PYTHON_VERS
 echo ============================================================
 echo Python setup
 echo Python command: %SYSTEM_PYTHON%
-echo Python path: %PYTHON_PATH%
+echo Python source: %PYTHON_PATH%
 echo Python version: %PYTHON_VERSION%
 echo Virtual environment: %VENV_DIR%
 echo ============================================================
@@ -118,6 +118,7 @@ if not exist ".venv" (
 )
 
 echo Installing backend dependencies...
+echo Runtime Python: %BACKEND_DIR%\.venv\Scripts\python.exe
 ".venv\Scripts\python.exe" -m pip install -r requirements.txt
 
 ".venv\Scripts\python.exe" -m pytest
