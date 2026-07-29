@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* ── Aura Executive design tokens (see docs/DESIGN_SYSTEM.md) ── */
+/* ── Aura Executive design tokens (see frontend/DESIGN_SYSTEM.md) ── */
 
 @theme inline {
   --color-background: #0d1515;

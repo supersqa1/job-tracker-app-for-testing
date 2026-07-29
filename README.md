@@ -678,16 +678,11 @@ Retry-After
 ```text
 job-tracker-app-for-testing/
 ├── backend/          # FastAPI, SQLite, auth, API routes
-├── frontend/         # Next.js frontend for development mode
-├── docs/             # Project and course fixture notes
-├── design/           # Design reference files
-└── prompts/          # Project prompt notes
+└── frontend/         # Next.js frontend for development mode
 ```
 
 Useful docs:
 
 - [Backend README](backend/README.md)
 - [Frontend README](frontend/README.md)
-- [Course Fixture Plan](docs/COURSE_FIXTURE_PLAN.md)
-- [API Auth Implementation Plan](docs/API_AUTH_IMPLEMENTATION_PLAN.md)
-- [Design System](docs/DESIGN_SYSTEM.md)
+- [Frontend Design System](frontend/DESIGN_SYSTEM.md)
