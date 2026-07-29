@@ -6,28 +6,61 @@ set "VENV_DIR=%BACKEND_DIR%\.venv"
 
 cd /d "%BACKEND_DIR%"
 
-where python3 >nul 2>nul
+py -3.13 --version >nul 2>nul
 if not errorlevel 1 (
-  set "SYSTEM_PYTHON=python3"
+  set "SYSTEM_PYTHON=py -3.13"
+  set "PYTHON_PATH=Windows Python launcher ^(Python 3.13^)"
 ) else (
-  where python >nul 2>nul
+  py -3.12 --version >nul 2>nul
   if not errorlevel 1 (
-    set "SYSTEM_PYTHON=python"
+    set "SYSTEM_PYTHON=py -3.12"
+    set "PYTHON_PATH=Windows Python launcher ^(Python 3.12^)"
   ) else (
-    echo ============================================================
-    echo Python was not found.
-    echo Please install Python 3.11 or newer, then run this script again.
-    echo ============================================================
-    exit /b 1
+    py -3.11 --version >nul 2>nul
+    if not errorlevel 1 (
+      set "SYSTEM_PYTHON=py -3.11"
+      set "PYTHON_PATH=Windows Python launcher ^(Python 3.11^)"
+    ) else (
+      python --version >nul 2>nul
+      if not errorlevel 1 (
+        for /f "tokens=2 delims= " %%V in ('python --version 2^>^&1') do set "PYTHON_NUMBER=%%V"
+        for /f "tokens=1,2 delims=." %%A in ("!PYTHON_NUMBER!") do (
+          set "PYTHON_MAJOR=%%A"
+          set "PYTHON_MINOR=%%B"
+        )
+        if "!PYTHON_MAJOR!"=="3" if !PYTHON_MINOR! GEQ 11 if !PYTHON_MINOR! LEQ 13 (
+          set "SYSTEM_PYTHON=python"
+          for /f "delims=" %%P in ('where python 2^>nul') do set "PYTHON_PATH=%%P"
+        )
+      )
+      if "!SYSTEM_PYTHON!"=="" (
+        python3 --version >nul 2>nul
+        if not errorlevel 1 (
+          for /f "tokens=2 delims= " %%V in ('python3 --version 2^>^&1') do set "PYTHON_NUMBER=%%V"
+          for /f "tokens=1,2 delims=." %%A in ("!PYTHON_NUMBER!") do (
+            set "PYTHON_MAJOR=%%A"
+            set "PYTHON_MINOR=%%B"
+          )
+          if "!PYTHON_MAJOR!"=="3" if !PYTHON_MINOR! GEQ 11 if !PYTHON_MINOR! LEQ 13 (
+            set "SYSTEM_PYTHON=python3"
+            for /f "delims=" %%P in ('where python3 2^>nul') do set "PYTHON_PATH=%%P"
+          )
+        )
+      )
+    )
   )
 )
 
-for /f "delims=" %%V in ('%SYSTEM_PYTHON% --version 2^>^&1') do set "PYTHON_VERSION=%%V"
-for /f "delims=" %%P in ('where %SYSTEM_PYTHON% 2^>nul') do (
-  set "PYTHON_PATH=%%P"
-  goto found_python_path_unit_test_backend
+if "%SYSTEM_PYTHON%"=="" (
+  echo ============================================================
+  echo Supported Python was not found.
+  echo Please install Python 3.11, 3.12, or 3.13, then run this script again.
+  echo Python 3.14 or newer may not have compatible package wheels yet.
+  echo ============================================================
+  exit /b 1
 )
-:found_python_path_unit_test_backend
+
+for /f "delims=" %%V in ('%SYSTEM_PYTHON% --version 2^>^&1') do set "PYTHON_VERSION=%%V"
 
 echo ============================================================
 echo Python setup

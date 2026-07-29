@@ -10,25 +10,52 @@ Write-Host "Backend folder: $BackendDir"
 
 Set-Location $BackendDir
 
-$PythonCommand = Get-Command python3 -ErrorAction SilentlyContinue
-if (-not $PythonCommand) {
-  $PythonCommand = Get-Command python -ErrorAction SilentlyContinue
+$PythonCommand = $null
+$PythonArgs = @()
+$Candidates = @(
+  @{ Command = "py"; Args = @("-3.13") },
+  @{ Command = "py"; Args = @("-3.12") },
+  @{ Command = "py"; Args = @("-3.11") },
+  @{ Command = "python"; Args = @() },
+  @{ Command = "python3"; Args = @() }
+)
+
+foreach ($Candidate in $Candidates) {
+  $Command = Get-Command $Candidate.Command -ErrorAction SilentlyContinue
+  if (-not $Command) {
+    continue
+  }
+
+  $VersionOutput = & $Command.Source @($Candidate.Args) --version 2>&1
+  if ($LASTEXITCODE -ne 0 -or -not ($VersionOutput -match "Python (\d+)\.(\d+)")) {
+    continue
+  }
+
+  $Major = [int]$Matches[1]
+  $Minor = [int]$Matches[2]
+  if ($Major -eq 3 -and $Minor -ge 11 -and $Minor -le 13) {
+    $PythonCommand = $Command
+    $PythonArgs = @($Candidate.Args)
+    break
+  }
 }
 
 if (-not $PythonCommand) {
   Write-Host "============================================================"
-  Write-Host "Python was not found."
-  Write-Host "Please install Python 3.11 or newer, then run this script again."
+  Write-Host "Supported Python was not found."
+  Write-Host "Please install Python 3.11, 3.12, or 3.13, then run this script again."
+  Write-Host "Python 3.14 or newer may not have compatible package wheels yet."
   Write-Host "============================================================"
   exit 1
 }
 
 $SystemPython = $PythonCommand.Source
-$PythonVersion = & $SystemPython --version
+$PythonDisplay = if ($PythonArgs.Count -gt 0) { "$SystemPython $($PythonArgs -join ' ')" } else { $SystemPython }
+$PythonVersion = & $SystemPython @PythonArgs --version
 
 Write-Host "============================================================"
 Write-Host "Python setup"
-Write-Host "Python command: $SystemPython"
+Write-Host "Python command: $PythonDisplay"
 Write-Host "Python version: $PythonVersion"
 Write-Host "Virtual environment: $VenvDir"
 Write-Host "============================================================"
@@ -48,7 +75,7 @@ if (-not (Test-Path ".venv")) {
     exit 1
   }
   Write-Host "Creating Python virtual environment..."
-  & $SystemPython -m venv .venv
+  & $SystemPython @PythonArgs -m venv .venv
 } else {
   Write-Host "Virtual environment already exists. Continuing with:"
   Write-Host $VenvDir
