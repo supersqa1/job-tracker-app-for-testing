@@ -9,9 +9,9 @@ SuperSQA Job Tracker helps users manage job applications, interviews, follow-ups
 
 | Link | Status |
 |---|---|
-| Real portfolio repo | `TODO: add supersqa-job-tracker GitHub link` |
-| Live portfolio app | `TODO: add public app URL` |
-| SuperSQA community/subscription | `TODO: add subscription link` |
+| Real portfolio repo | https://github.com/supersqa1/supersqa-job-tracker |
+| Live portfolio app | `Comming Soon` |
+| SuperSQA community/subscription | https://supersqa.com |
 
 ## Table of Contents
 
