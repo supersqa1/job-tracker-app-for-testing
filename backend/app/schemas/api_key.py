@@ -4,6 +4,17 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class ApiKeyCreate(BaseModel):
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "name": "Postman testing key",
+                    "expires_at": None,
+                }
+            ]
+        }
+    }
+
     name: str = Field(min_length=1, max_length=100)
     expires_at: datetime | None = None
 
@@ -17,6 +28,18 @@ class ApiKeyCreate(BaseModel):
 
 
 class ApiKeyUpdate(BaseModel):
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "name": "Renamed Postman key",
+                    "is_active": True,
+                    "expires_at": None,
+                }
+            ]
+        }
+    }
+
     name: str | None = Field(default=None, min_length=1, max_length=100)
     is_active: bool | None = None
     expires_at: datetime | None = None

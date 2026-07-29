@@ -29,10 +29,38 @@ class JobApplicationBase(BaseModel):
 
 
 class JobApplicationCreate(JobApplicationBase):
-    pass
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "company_name": "Acme Corp",
+                    "role_title": "API Test Engineer",
+                    "status": "applied",
+                    "location": "Remote",
+                    "remote_type": "remote",
+                    "salary_range": "$100k - $130k",
+                    "job_url": "https://example.com/jobs/api-test-engineer",
+                    "notes": "Submitted through company careers page.",
+                    "next_action": "Follow up with recruiter",
+                }
+            ]
+        }
+    }
 
 
 class JobApplicationUpdate(BaseModel):
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "status": "in_progress",
+                    "notes": "Recruiter screen completed.",
+                    "next_action": "Schedule technical interview",
+                }
+            ]
+        }
+    }
+
     company_name: str | None = Field(default=None, min_length=1, max_length=200)
     role_title: str | None = Field(default=None, min_length=1, max_length=200)
     status: ApplicationStatus | None = None

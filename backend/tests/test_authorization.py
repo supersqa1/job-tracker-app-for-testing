@@ -142,3 +142,20 @@ def test_admin_status_rejects_normal_user_with_forbidden():
 
     assert response.status_code == 403
     assert_error(response, code="FORBIDDEN", message="Insufficient permissions")
+
+
+def test_admin_status_rejects_api_key_authentication():
+    with TestClient(app) as client:
+        token = login_token(client, STUDENT_EMAIL, STUDENT_PASSWORD)
+        key_response = client.post(
+            "/api/v1/api-keys",
+            headers=auth_header(token),
+            json={"name": "Admin endpoint negative test"},
+        )
+        response = client.get(
+            "/api/v1/admin/status",
+            headers={"X-API-Key": key_response.json()["api_key"]},
+        )
+
+    assert response.status_code == 401
+    assert_error(response, code="AUTHENTICATION_REQUIRED", message="Authentication required")
