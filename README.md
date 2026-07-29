@@ -13,13 +13,41 @@ SuperSQA Job Tracker helps users manage job applications, interviews, follow-ups
 | Live portfolio app | `Comming Soon` |
 | SuperSQA community/subscription | https://supersqa.com |
 
+## Quick Start for Students
+
+Most students should start here. This runs the backend API and the packaged frontend together.
+
+```bash
+./run-app.sh
+```
+
+Then open:
+
+- App: `http://localhost:3050`
+- Swagger API docs: `http://localhost:3050/docs`
+
+Windows users:
+
+```bat
+run-app.bat
+```
+
+PowerShell users:
+
+```powershell
+.\run-app.ps1
+```
+
+For more details, see [Easy Run for Courses](#easy-run-for-courses--recommended-for-students).
+
 ## Table of Contents
 
+- [Quick Start for Students](#quick-start-for-students)
 - [1. What This Repo Is](#1-what-this-repo-is)
 - [2. Running the App](#2-running-the-app)
   - [Environment Files](#environment-files)
   - [Database File](#database-file)
-  - [Easy Run for Courses](#easy-run-for-courses)
+  - [Easy Run for Courses — Recommended for Students](#easy-run-for-courses--recommended-for-students)
   - [Development Run](#development-run)
   - [Updating the Packaged Frontend](#updating-the-packaged-frontend)
 - [3. Login Accounts](#3-login-accounts)
@@ -65,6 +93,17 @@ Common uses:
 ---
 
 # 2. Running the App
+
+> [!TIP]
+> **Most students should use the easy course run.**
+>
+> From the project root, run one command:
+>
+> ```bash
+> ./run-app.sh
+> ```
+>
+> Then open `http://localhost:3050`. Windows commands are listed in [Easy Run for Courses](#easy-run-for-courses).
 
 ## Environment Files
 
@@ -143,11 +182,14 @@ To reset the app data:
 The backend will create a fresh database with the seeded data again.
 
 > [!WARNING]
-> Use this mode when you want to run the app for a course, write tests, use Swagger, use Postman, or try the UI as a user. Do not use this mode when you want to change the UI. For real app development, use [Development Run](#development-run).
+> Use Course Mode when you want to run the app for a course, write tests, use Swagger, use Postman, or try the UI as a user. Do not use Course Mode when you want to change the UI. For real app development, use [Development Run](#development-run).
 
-## Easy Run for Courses
+## Easy Run for Courses — Recommended for Students
 
-Course Mode is the student-friendly way to run the stable app. It should only require Python. Students should not need to install Node.js or run the frontend separately.
+> [!IMPORTANT]
+> Start here for API testing, Swagger, Postman, pytest, and most course lessons. This mode only needs Python. Students do not need Node.js and do not need to run the frontend separately.
+
+Course Mode is the student-friendly way to run the stable app.
 
 In this mode, FastAPI serves both:
 
@@ -156,7 +198,7 @@ In this mode, FastAPI serves both:
 
 The packaged frontend is already included in the repo. Students do not need to build it.
 
-The easiest option is to run the script from the project root.
+The easiest option is to run the script from the project root:
 
 macOS or Linux:
 
