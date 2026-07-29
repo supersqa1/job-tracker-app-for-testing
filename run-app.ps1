@@ -20,9 +20,33 @@ if (-not (Test-Path $StaticIndex)) {
 
 Set-Location $BackendDir
 
-$PythonCommand = Get-Command python3 -ErrorAction SilentlyContinue
+$PythonCommand = Get-Command py -ErrorAction SilentlyContinue
+$PythonArgs = @("-3")
+if ($PythonCommand) {
+  & $PythonCommand.Source @PythonArgs --version *> $null
+  if ($LASTEXITCODE -ne 0) {
+    $PythonCommand = $null
+  }
+}
 if (-not $PythonCommand) {
   $PythonCommand = Get-Command python -ErrorAction SilentlyContinue
+  $PythonArgs = @()
+  if ($PythonCommand) {
+    & $PythonCommand.Source @PythonArgs --version *> $null
+    if ($LASTEXITCODE -ne 0) {
+      $PythonCommand = $null
+    }
+  }
+}
+if (-not $PythonCommand) {
+  $PythonCommand = Get-Command python3 -ErrorAction SilentlyContinue
+  $PythonArgs = @()
+  if ($PythonCommand) {
+    & $PythonCommand.Source @PythonArgs --version *> $null
+    if ($LASTEXITCODE -ne 0) {
+      $PythonCommand = $null
+    }
+  }
 }
 
 if (-not $PythonCommand) {
@@ -34,11 +58,12 @@ if (-not $PythonCommand) {
 }
 
 $SystemPython = $PythonCommand.Source
-$PythonVersion = & $SystemPython --version
+$PythonDisplay = if ($PythonArgs.Count -gt 0) { "$SystemPython $($PythonArgs -join ' ')" } else { $SystemPython }
+$PythonVersion = & $SystemPython @PythonArgs --version
 
 Write-Host "============================================================"
 Write-Host "Python setup"
-Write-Host "Python command: $SystemPython"
+Write-Host "Python command: $PythonDisplay"
 Write-Host "Python version: $PythonVersion"
 Write-Host "Virtual environment: $VenvDir"
 Write-Host "============================================================"
@@ -53,7 +78,7 @@ if (-not (Test-Path ".venv")) {
     exit 1
   }
   Write-Host "Creating Python virtual environment..."
-  & $SystemPython -m venv .venv
+  & $SystemPython @PythonArgs -m venv .venv
 } else {
   Write-Host "Virtual environment already exists. Continuing with:"
   Write-Host $VenvDir
