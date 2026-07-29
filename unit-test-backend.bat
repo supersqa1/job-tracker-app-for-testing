@@ -6,28 +6,35 @@ set "VENV_DIR=%BACKEND_DIR%\.venv"
 
 cd /d "%BACKEND_DIR%"
 
-where python3 >nul 2>nul
+py -3 --version >nul 2>nul
 if not errorlevel 1 (
-  set "SYSTEM_PYTHON=python3"
+  set "SYSTEM_PYTHON=py -3"
+  set "PYTHON_PATH=Windows Python launcher"
 ) else (
-  where python >nul 2>nul
+  python --version >nul 2>nul
   if not errorlevel 1 (
     set "SYSTEM_PYTHON=python"
+    for /f "delims=" %%P in ('where python 2^>nul') do (
+      set "PYTHON_PATH=%%P"
+    )
   ) else (
-    echo ============================================================
-    echo Python was not found.
-    echo Please install Python 3.11 or newer, then run this script again.
-    echo ============================================================
-    exit /b 1
+    python3 --version >nul 2>nul
+    if not errorlevel 1 (
+      set "SYSTEM_PYTHON=python3"
+      for /f "delims=" %%P in ('where python3 2^>nul') do (
+        set "PYTHON_PATH=%%P"
+      )
+    ) else (
+      echo ============================================================
+      echo Python was not found.
+      echo Please install Python 3.11 or newer, then run this script again.
+      echo ============================================================
+      exit /b 1
+    )
   )
 )
 
 for /f "delims=" %%V in ('%SYSTEM_PYTHON% --version 2^>^&1') do set "PYTHON_VERSION=%%V"
-for /f "delims=" %%P in ('where %SYSTEM_PYTHON% 2^>nul') do (
-  set "PYTHON_PATH=%%P"
-  goto found_python_path_unit_test_backend
-)
-:found_python_path_unit_test_backend
 
 echo ============================================================
 echo Python setup
