@@ -150,11 +150,12 @@ def test_summary_counts_only_current_users_applications():
 
 
 def test_create_application_writes_internal_audit_log():
+    user_agent = "course-sql-audit-test/1.0"
     with TestClient(app) as client:
         email, token = register_and_login(client)
         response = client.post(
             "/api/v1/applications",
-            headers=auth_header(token),
+            headers={**auth_header(token), "User-Agent": user_agent},
             json={
                 "company_name": "Audit Trail Labs",
                 "role_title": "QA Automation Engineer",
@@ -179,6 +180,8 @@ def test_create_application_writes_internal_audit_log():
     assert audit_log.action == "created"
     assert audit_log.old_status is None
     assert audit_log.new_status == "applied"
+    assert audit_log.user_agent == user_agent
+    assert audit_log.ip_address
 
 
 def test_update_application_writes_internal_audit_log_with_status_change():
