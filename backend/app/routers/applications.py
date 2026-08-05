@@ -13,7 +13,11 @@ from app.schemas.application import (
     JobApplicationUpdate,
     PipelineSummary,
 )
-from app.services.applications import apply_application_update, build_pipeline_summary
+from app.services.applications import (
+    apply_application_update,
+    build_pipeline_summary,
+    create_application_audit_log,
+)
 
 router = APIRouter(prefix="/applications", tags=["applications"])
 
@@ -104,6 +108,14 @@ def create_application(
     db.add(application)
     db.commit()
     db.refresh(application)
+    create_application_audit_log(
+        db,
+        application_id=application.id,
+        user_id=current_user.id,
+        action="created",
+        new_status=application.status.value,
+    )
+    db.commit()
     return application
 
 
@@ -125,8 +137,17 @@ def update_application(
     if application is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Application not found")
 
+    old_status = application.status.value
     apply_application_update(application, payload)
 
+    create_application_audit_log(
+        db,
+        application_id=application.id,
+        user_id=current_user.id,
+        action="updated",
+        old_status=old_status,
+        new_status=application.status.value,
+    )
     db.commit()
     db.refresh(application)
     return application
@@ -148,5 +169,12 @@ def delete_application(
     )
     if application is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Application not found")
+    create_application_audit_log(
+        db,
+        application_id=application.id,
+        user_id=current_user.id,
+        action="deleted",
+        old_status=application.status.value,
+    )
     db.delete(application)
     db.commit()

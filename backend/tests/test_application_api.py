@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 
 from app.database import SessionLocal
 from app.main import app
-from app.models.application import JobApplication
+from app.models.application import ApplicationAuditLog, JobApplication
 from app.seed import STUDENT_EMAIL, STUDENT_PASSWORD
 from app.services.users import get_user_by_email
 from tests.helpers import assert_error, auth_header, login_token
@@ -147,3 +147,114 @@ def test_summary_counts_only_current_users_applications():
     assert response.status_code == 200
     assert response.json()["total"] == 1
     assert response.json()["applied"] == 1
+
+
+def test_create_application_writes_internal_audit_log():
+    with TestClient(app) as client:
+        email, token = register_and_login(client)
+        response = client.post(
+            "/api/v1/applications",
+            headers=auth_header(token),
+            json={
+                "company_name": "Audit Trail Labs",
+                "role_title": "QA Automation Engineer",
+                "status": "applied",
+            },
+        )
+
+    assert response.status_code == 201
+    application_id = response.json()["id"]
+
+    with SessionLocal() as db:
+        user = get_user_by_email(db, email)
+        audit_log = (
+            db.query(ApplicationAuditLog)
+            .filter(ApplicationAuditLog.application_id == application_id)
+            .one_or_none()
+        )
+
+    assert user is not None
+    assert audit_log is not None
+    assert audit_log.user_id == user.id
+    assert audit_log.action == "created"
+    assert audit_log.old_status is None
+    assert audit_log.new_status == "applied"
+
+
+def test_update_application_writes_internal_audit_log_with_status_change():
+    with TestClient(app) as client:
+        email, token = register_and_login(client)
+        create_response = client.post(
+            "/api/v1/applications",
+            headers=auth_header(token),
+            json={
+                "company_name": "Audit Update Labs",
+                "role_title": "QA Automation Engineer",
+                "status": "applied",
+            },
+        )
+        application_id = create_response.json()["id"]
+
+        response = client.patch(
+            f"/api/v1/applications/{application_id}",
+            headers=auth_header(token),
+            json={"status": "in_progress", "notes": "Recruiter screen scheduled."},
+        )
+
+    assert response.status_code == 200
+
+    with SessionLocal() as db:
+        user = get_user_by_email(db, email)
+        audit_log = (
+            db.query(ApplicationAuditLog)
+            .filter(
+                ApplicationAuditLog.application_id == application_id,
+                ApplicationAuditLog.action == "updated",
+            )
+            .one_or_none()
+        )
+
+    assert user is not None
+    assert audit_log is not None
+    assert audit_log.user_id == user.id
+    assert audit_log.old_status == "applied"
+    assert audit_log.new_status == "in_progress"
+
+
+def test_delete_application_writes_internal_audit_log():
+    with TestClient(app) as client:
+        email, token = register_and_login(client)
+        create_response = client.post(
+            "/api/v1/applications",
+            headers=auth_header(token),
+            json={
+                "company_name": "Audit Delete Labs",
+                "role_title": "QA Automation Engineer",
+                "status": "in_progress",
+            },
+        )
+        application_id = create_response.json()["id"]
+
+        response = client.delete(
+            f"/api/v1/applications/{application_id}",
+            headers=auth_header(token),
+        )
+
+    assert response.status_code == 204
+
+    with SessionLocal() as db:
+        user = get_user_by_email(db, email)
+        audit_log = (
+            db.query(ApplicationAuditLog)
+            .filter(
+                ApplicationAuditLog.application_id == application_id,
+                ApplicationAuditLog.action == "deleted",
+            )
+            .one_or_none()
+        )
+
+    assert user is not None
+    assert audit_log is not None
+    assert audit_log.user_id == user.id
+    assert audit_log.old_status == "in_progress"
+    assert audit_log.new_status is None

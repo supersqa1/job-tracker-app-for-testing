@@ -1,7 +1,9 @@
 from collections.abc import Iterable
 from typing import Any
 
-from app.models.application import ApplicationStatus
+from sqlalchemy.orm import Session
+
+from app.models.application import ApplicationAuditLog, ApplicationStatus
 from app.schemas.application import JobApplicationUpdate, PipelineSummary
 
 
@@ -21,3 +23,23 @@ def apply_application_update(application: Any, payload: JobApplicationUpdate) ->
         setattr(application, field, value)
 
     return update_data
+
+
+def create_application_audit_log(
+    db: Session,
+    *,
+    application_id: int,
+    user_id: int,
+    action: str,
+    old_status: str | None = None,
+    new_status: str | None = None,
+) -> ApplicationAuditLog:
+    audit_log = ApplicationAuditLog(
+        application_id=application_id,
+        user_id=user_id,
+        action=action,
+        old_status=old_status,
+        new_status=new_status,
+    )
+    db.add(audit_log)
+    return audit_log
