@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -13,7 +13,11 @@ from app.schemas.application import (
     JobApplicationUpdate,
     PipelineSummary,
 )
-from app.services.applications import apply_application_update, build_pipeline_summary
+from app.services.applications import (
+    apply_application_update,
+    build_pipeline_summary,
+    create_application_audit_log,
+)
 
 router = APIRouter(prefix="/applications", tags=["applications"])
 
@@ -97,6 +101,7 @@ def get_application(
 )
 def create_application(
     payload: JobApplicationCreate,
+    request: Request,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ) -> JobApplication:
@@ -104,6 +109,15 @@ def create_application(
     db.add(application)
     db.commit()
     db.refresh(application)
+    create_application_audit_log(
+        db,
+        application_id=application.id,
+        user_id=current_user.id,
+        action="created",
+        new_status=application.status.value,
+        request=request,
+    )
+    db.commit()
     return application
 
 
@@ -111,6 +125,7 @@ def create_application(
 def update_application(
     application_id: int,
     payload: JobApplicationUpdate,
+    request: Request,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ) -> JobApplication:
@@ -125,8 +140,18 @@ def update_application(
     if application is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Application not found")
 
+    old_status = application.status.value
     apply_application_update(application, payload)
 
+    create_application_audit_log(
+        db,
+        application_id=application.id,
+        user_id=current_user.id,
+        action="updated",
+        old_status=old_status,
+        new_status=application.status.value,
+        request=request,
+    )
     db.commit()
     db.refresh(application)
     return application
@@ -135,6 +160,7 @@ def update_application(
 @router.delete("/{application_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_application(
     application_id: int,
+    request: Request,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ) -> None:
@@ -148,5 +174,13 @@ def delete_application(
     )
     if application is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Application not found")
+    create_application_audit_log(
+        db,
+        application_id=application.id,
+        user_id=current_user.id,
+        action="deleted",
+        old_status=application.status.value,
+        request=request,
+    )
     db.delete(application)
     db.commit()
