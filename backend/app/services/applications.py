@@ -1,6 +1,7 @@
 from collections.abc import Iterable
 from typing import Any
 
+from fastapi import Request
 from sqlalchemy.orm import Session
 
 from app.models.application import ApplicationAuditLog, ApplicationStatus
@@ -33,6 +34,7 @@ def create_application_audit_log(
     action: str,
     old_status: str | None = None,
     new_status: str | None = None,
+    request: Request | None = None,
 ) -> ApplicationAuditLog:
     audit_log = ApplicationAuditLog(
         application_id=application_id,
@@ -40,6 +42,20 @@ def create_application_audit_log(
         action=action,
         old_status=old_status,
         new_status=new_status,
+        ip_address=get_request_ip(request),
+        user_agent=get_request_user_agent(request),
     )
     db.add(audit_log)
     return audit_log
+
+
+def get_request_ip(request: Request | None) -> str | None:
+    if request is None or request.client is None:
+        return None
+    return request.client.host
+
+
+def get_request_user_agent(request: Request | None) -> str | None:
+    if request is None:
+        return None
+    return request.headers.get("user-agent")
